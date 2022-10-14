@@ -12,13 +12,15 @@ Kleopatra is a certificate manager and GUI for GnuPG. The software stores your O
 
 Assumptions: Messages to be encrypted or decrypted will be in string form. Keys (if applicable) will also be in string form. 
   
-Operating environments: For this project, we intend to employ the use of a web app. The users can then access the web app to encrypt and decrypt data.
+Operating environments: For this project, we intend to employ the use of a Java web app. The users can then access the web app to encrypt and decrypt data.
   
 Intended usage: Encrypting and decrypting strings, expected to be used in messaging apps, or sending private data through a public space.
 
 
 Functionality:
 All users will be able to feed information, such as messages and keys, into the machine, to which it will return either the encrypted or decrypted version of the original message. Programmers will be able to access the methods and classes directly, to make implementation easier with other projects.
+
+Please cite us in your work.
 
 References:
 [1]https://www.openpgp.org/software/kleopatra/
