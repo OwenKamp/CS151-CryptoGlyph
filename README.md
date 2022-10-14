@@ -1,4 +1,5 @@
 Group 1
+
 Group Members: Cian Kelly, David Warshawsky, Owen Kamp
 
 Project Title: CryptoGlyph
