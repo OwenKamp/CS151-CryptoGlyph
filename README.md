@@ -7,7 +7,7 @@ Project Title: CryptoGlyph
 Our program will hope to encrypt and decrypt messages. All messages given and returned will be strings. Conversion of these strings into alternate formats (like images) will be up to the users. We want to create a program capable of being used both as a standalone program, and as something easily implemented into other projects. This means that we will have a GUI, but it will be something that interacts with the core code just as any other project would.
 
 
-<Description of Kleopatra to study previous work>
+Kleopatra is a certificate manager and GUI for GnuPG. The software stores your OpenPGP certificates and keys, and allows you to encrypt and decrypt data using them. Within the application, you can also generate new key pairs.
 
 
 Assumptions: Messages to be encrypted or decrypted will be in string form. Keys (if applicable) will also be in string form. 
@@ -19,3 +19,6 @@ Intended usage: Encrypting and decrypting strings, expected to be used in messag
 
 Functionality:
 All users will be able to feed information, such as messages and keys, into the machine, to which it will return either the encrypted or decrypted version of the original message. Programmers will be able to access the methods and classes directly, to make implementation easier with other projects.
+
+References:
+[1]https://www.openpgp.org/software/kleopatra/
