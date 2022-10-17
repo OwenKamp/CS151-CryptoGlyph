@@ -18,8 +18,7 @@ Intended usage: Encrypting and decrypting strings, expected to be used in messag
 
 
 Functionality:
-All users will be able to feed information, such as messages and keys, into the machine, to which it will return either the encrypted or decrypted version of the original message. Programmers will be able to access the methods and classes directly, to make implementation easier with other projects.
-
+All users will be able to feed information, such as messages and keys, into the machine, to which it will return either the encrypted or decrypted version of the original message. Programmers will be able to access the methods and classes directly, to make implementation into other projects easier.
 Please cite us in your work.
 
 References:
