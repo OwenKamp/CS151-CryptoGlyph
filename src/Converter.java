@@ -2,12 +2,32 @@ import java.nio.ByteBuffer;
 import java.util.HashMap;
 
 public class Converter {
-//    public static String stringToBinaryString(String str) {
-//        StringBuilder binaryString = new StringBuilder();
-//        char[] chars = str.toCharArray();
-//        //for (char )
-//        return str;
-//    }
+    public static String stringToBinaryString(String str) {
+        StringBuilder binaryString = new StringBuilder();
+        char[] chars = str.toCharArray();
+
+        for (char character : chars) {
+            StringBuilder letterBuilder = new StringBuilder(Integer.toBinaryString(character));
+            while (letterBuilder.length() < 8) {
+                letterBuilder.insert(0, "0");
+            }
+//            if (letterBuilder.length() < 8) {
+//                letterBuilder.insert(0, "0");
+//            }
+            binaryString.append(letterBuilder);
+        }
+        return binaryString.toString();
+    }
+
+    public static String binaryStringToString(String str) {
+        String regularString = "";
+        for (int i = 0; i < str.length()/8; i++) {
+            int a = Integer.parseInt(str.substring(8*i,(i+1)*8),2);
+            regularString += (char)(a);
+        }
+
+        return regularString;
+    }
 
     public static byte[] stringToBinary(String str) {
         byte[] bytes = str.getBytes();
@@ -119,5 +139,13 @@ public class Converter {
         }
         String hexString2 = binaryToHex(hexBytes);
         System.out.println("\nHex String: " + hexString2);
+
+
+        System.out.println("\n\nbinaryString to String and back testing");
+        String testingbsts = "hello my";
+        String testingbstsInBinaryString = stringToBinaryString(testingbsts);
+        System.out.println("BinaryString: " + testingbstsInBinaryString);
+        String reversed = binaryStringToString(testingbstsInBinaryString);
+        System.out.println("Reversed: " + reversed);
     }
 }
