@@ -1,6 +1,6 @@
 import static java.lang.String.valueOf;
 
-public class Caesar extends Symmetric {
+public class Caesar extends Cryptography {
     public String encrypt(String plaintext, String key) {
         int Key = Integer.parseInt(key);
         plaintext = plaintext.toUpperCase();
