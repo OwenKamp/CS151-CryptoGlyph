@@ -1,44 +1,38 @@
 import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.Stream;
 
 public class Knapsack extends Cryptography {
 //	n is greater than the sum of all elements in the super- increasing knapsack.
 //	To get the general knapsack, you need to mod the result of sik and multiplier(m) by n.  
 	private static Random r = new Random();
-
+	public static final byte[] MASKS = {(byte) 0b00000001,(byte) 0b00000010,(byte) 0b00000100,(byte) 0b00001000,(byte) 0b00010000,(byte) 0b00100000,(byte) 0b01000000,(byte) 0b10000000,};
+	
 //	https://www.geeksforgeeks.org/copyright-information/?ref=footer
 //	https://www.geeksforgeeks.org/java-program-to-display-all-prime-numbers-from-1-to-n/
 	public static float generateMultiplier() {
-<<<<<<< Updated upstream
-		return r.nextInt(1, 4) + r.nextFloat() + 0.01f;
-=======
 		return r.nextInt(1, 3) + (r.nextFloat() * 0.5f) + 0.01f;
->>>>>>> Stashed changes
 	}
 
 //	For the Super-Increasing Knapsack generate an int array where the next element
 //	in the array is greater than the sum of all previous weights.
 //	Basically generates the Private key
-	public int[] generateSIK() {
+	public static long[] generateSIK() {
 //		Each SIK will be 8 numbers long. The length of one byte. The 9th will be m, the 10th will 
 //		be n
-		int[] sik = new int[10];
+		long[] sik = new long[10];
 		sik[0] = r.nextInt(101);
-		int sum = sik[0];
+		long sum = sik[0];
 
 //		The next number should be the sum of all the previous numbers 
 ////	times a float between 1.01 and 4.00 times the sum. Then it should be cast to an int.
 		for (int i = 1; i < 8; i++) {
 			float mul = generateMultiplier();
-<<<<<<< Updated upstream
-			sik[i] = (int) (sum * mul);
-=======
 			long nextNum = (long) (sum * mul);
 			while (nextNum == sik[i - 1] || nextNum <= sum) {
 				nextNum += 1;
 			}
 			sik[i] = nextNum;
->>>>>>> Stashed changes
 			sum += sik[i];
 //			System.out.println(sum);
 		}
@@ -66,37 +60,20 @@ public class Knapsack extends Cryptography {
 		return sik;
 	}
 
-	public int[] generateGK(int sik[]) {
+	public static long[] generateGK(long sik[]) {
 		
-		int[] gk = new int[8];
+		long[] gk = new long[8];
 		for(int i=0;i<8;i++) {
 			gk[i] = (sik[i]*sik[8]) % sik[9];
 		}
 
 		return gk;
 	}
-	
-	public static String convertStringToBinary(String input) {
-
-        StringBuilder result = new StringBuilder();
-        char[] chars = input.toCharArray();
-        for (char aChar : chars) {
-            result.append(
-                    String.format("%8s", Integer.toBinaryString(aChar))   // char -> int, auto-cast
-                            .replaceAll(" ", "0")                         // zero pads
-            );
-        }
-        return result.toString();
-
-    }
-	
+		
 	
 	@Override
 	public String encrypt(String plainText, String key) {
-<<<<<<< Updated upstream
 		String binary = convertStringToBinary(plainText);
-		return null;
-=======
 		if (plainText == null) {
 			return null;
 		}
@@ -122,7 +99,6 @@ public class Knapsack extends Cryptography {
 			}
 		}
 		return longArrayToCsv(sums);
->>>>>>> Stashed changes
 	}
 
 	@Override
@@ -130,29 +106,16 @@ public class Knapsack extends Cryptography {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public static String charToBinaryStr(char c) {
-		return String.format("%8s", Integer.toBinaryString('i')).replaceAll(" ", "0");
-	}
 	
 	public static int[] charToBinaryArray(char c) {
 		int[] bArray = new int[8];
 		String charBinaryStr = charToBinaryStr(c);
-<<<<<<< Updated upstream
 		for (int i=0;i<8;i++) {
-			bArray[i] = Integer.parseInt(charBinaryStr[i]);
+			bArray[i] = Integer.parseInt(Character.toString(charBinaryStr.charAt(i)));
 		}
 		return bArray;
 	}
 
-	public static void main(String[] args) {
-//		System.out.println(Arrays.toString(generateSIK()));
-		System.out.println();
-=======
-		for (int i = 0; i < 8; i++) {
-			binaryArray[i] = Integer.parseInt(Character.toString(charBinaryStr.charAt(i)));
-		}
-		return binaryArray;
-	}
 
 //	https://stackoverflow.com/questions/9354860/how-to-get-the-value-of-a-bit-at-a-certain-position-from-a-byte
 	public static int getBit(byte b, int position) {
@@ -192,7 +155,6 @@ public class Knapsack extends Cryptography {
 	}
 
 	public static String convertStringToBinary(String input) {
-
 		StringBuilder result = new StringBuilder();
 		char[] chars = input.toCharArray();
 		for (char aChar : chars) {
@@ -201,7 +163,7 @@ public class Knapsack extends Cryptography {
 		return result.toString();
 
 	}
-
+	
 	public static String charToBinaryStr(char c) {
 		String charS = String.format("%8s", Integer.toBinaryString(c)).replaceAll(" ", "0");  
 		return charS.substring(charS.length()-8, charS.length());
@@ -221,7 +183,6 @@ public class Knapsack extends Cryptography {
 //		System.out.println(Knapsack.solveKnapsack(encrypted[0],sik));
 //		https://stackoverflow.com/questions/36019032/how-to-iterate-over-all-bits-of-a-byte-in-java
 
->>>>>>> Stashed changes
 	}
 
 }
