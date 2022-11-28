@@ -18,14 +18,46 @@ public class RSA extends Cryptography {
 		d = calcD();
 	}
 	
-	// not too sure how to complete these, I assume you know what you want
-	public static int getPublicKey(int m) {
-		// returns n and e
-		return 0;
+	// if you need these, they give a 64 bit key with the first 32 being n and e for the public key, and n and d for the private key
+	public static String getPublicKey() {
+		StringBuilder s = new StringBuilder();
+		String str = Integer.toBinaryString(n);
+		if(str.length()<32) {
+			for(int i = str.length(); i < 32; i++) {
+				s.append("0");
+			}
+		}
+		s.append(str);
+		
+		str = Integer.toBinaryString(e);
+		if(str.length()<32) {
+			for(int i = str.length(); i < 32; i++) {
+				s.append("0");
+			}
+		}
+		s.append(str);
+		
+		return s.toString();
 	}
-	public static int getPrivateKey(int c) {
-		// returns n and d
-		return 0;
+	public static String getPrivateKey() {
+		StringBuilder s = new StringBuilder();
+		String str = Integer.toBinaryString(n);
+		if(str.length()<32) {
+			for(int i = str.length(); i < 32; i++) {
+				s.append("0");
+			}
+		}
+		s.append(str);
+		
+		str = Integer.toBinaryString(d);
+		if(str.length()<32) {
+			for(int i = str.length(); i < 32; i++) {
+				s.append("0");
+			}
+		}
+		s.append(str);
+		
+		return s.toString();
 	}
 	
 	public static int encrypt(int msg) {
