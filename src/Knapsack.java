@@ -53,7 +53,6 @@ public class Knapsack extends Cryptography {
 			}
 
 		} catch (PrimesNotCalculatedException e1) {
-			// TODO Auto-generated catch block
 			return null;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return null;
