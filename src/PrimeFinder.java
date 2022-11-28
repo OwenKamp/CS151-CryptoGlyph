@@ -3,8 +3,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class PrimeFinder {
-	public int[] primes;
-    public void calculatePrimes(int n){
+	public long[] primes;
+    public void calculatePrimes(long n){
     	//  Create a boolean array
 	    // "prime[0..n]" and
         // initialize all entries
@@ -12,8 +12,12 @@ public class PrimeFinder {
         // prime[i] will finally be
         // false if i is Not a
         // prime, else true.
-    	ArrayList<Integer> primes = new ArrayList<Integer>() ;
-        boolean prime[] = new boolean[n + 1];
+    	// Minimum value is 20 because otherwise there will not be enough primes.
+    	if(n < 20) {
+    		n = 20;
+    	}
+    	ArrayList<Long> primes = new ArrayList<Long>() ;
+        boolean prime[] = new boolean[(int) (n + 1)];
         for (int i = 0; i <= n; i++)
             prime[i] = true;
  
@@ -30,36 +34,33 @@ public class PrimeFinder {
         // Print all prime numbers
         for (int i = 2; i <= n; i++) {
             if (prime[i] == true)
-                primes.add(i);
+                primes.add((long)i);
         }
-        this.primes = primes.stream().mapToInt(Integer::intValue).toArray();
+        this.primes = primes.stream().mapToLong(Long::longValue).toArray();
 
     }
     
-    public int[] getPrimes() throws PrimesNotCalculatedException {
-    	if (primes.length == 0) {
-    		throw new PrimesNotCalculatedException();
-    	}
+    public long[] getPrimes(){
     	return primes;
     }
-//    Gets a random prime number except for the last one. The last one is n.
+//    Gets a random prime number except for the first and last one. The last one is n.
+//    the first 3 are two small so it is not allowed.
 //    This is used to pick a multiplier(m).
-    public int getRandomPrime(Random r) throws PrimesNotCalculatedException {
+    public long getRandomPrime(Random r) throws PrimesNotCalculatedException {
     	if (primes.length == 0) {
-    		throw new PrimesNotCalculatedException();
+    		throw new PrimesNotCalculatedException("No primes calculated yet");
     	}
-    	return primes[r.nextInt(primes.length)];
+    	return primes[r.nextInt(primes.length-3)+3];
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PrimesNotCalculatedException {
 		PrimeFinder p = new PrimeFinder();
 		p.calculatePrimes(100);
-		int[] plist = null;
-		try {
-			plist = p.getPrimes();
-		} catch (PrimesNotCalculatedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		long[] plist = null;
+		plist = p.getPrimes();
+		Random r = new Random();
+		for (int i=0;i<100;i++) {
+			System.out.println(p.getRandomPrime(r)); 
 		}
 		System.out.println(Arrays.toString(plist));
 	}
