@@ -1,0 +1,3 @@
+We will be using Java 17 end of story.
+Do not modify the strucutre of the folders: proposal, diagrams, and src
+Put .idea, out folders in .gitignore
