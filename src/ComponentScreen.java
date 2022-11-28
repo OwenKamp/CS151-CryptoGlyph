@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class AlgorithmScreen{
+public class ComponentScreen{
 	private JFrame f;
 	private ArrayList<JComponent> componentList = new ArrayList<>();
 	
-	public AlgorithmScreen(JFrame f) {
+	public ComponentScreen(JFrame f) {
 		this.f = f;
 	}
 	
