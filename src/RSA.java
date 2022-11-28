@@ -1,11 +1,5 @@
 public class RSA extends Cryptography {
-	// for the sake of getting it to work, I decided to set the values
-	// we could overwrite them manually by having some method "fix" them
-	// maybe an update() method that takes all of the text boxes in GUIand fills in?
-	// only need to overwrite p, q, and e
-	
-	// if you do that, make sure to check that p and q are prime
-	// preferably, e is prime as well
+	// I set default values, just remove these if you don't want them
 	
 	private static int p = 61;
 	private static int q = 53;
@@ -14,6 +8,15 @@ public class RSA extends Cryptography {
 	private static int g = LCM(p-1,q-1);
 	private static int d = calcD();
 	
+	// only necessary if you want to have p, q, and e be inputs
+	public static void update(int newP, int newQ, int newE) {
+		p = newP;
+		q = newQ;
+		e = newE;
+		n = p*q;
+		g = LCM(p-1,q-1);
+		d = calcD();
+	}
 	
 	// not too sure how to complete these, I assume you know what you want
 	public static int getPublicKey(int m) {
