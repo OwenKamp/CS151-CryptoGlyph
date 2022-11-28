@@ -50,7 +50,7 @@ public class PrimeFinder {
     	if (primes.length == 0) {
     		throw new PrimesNotCalculatedException("No primes calculated yet");
     	}
-    	return primes[r.nextInt(3,primes.length)];
+    	return primes[r.nextInt(primes.length-3)+3];
     }
     
     public static void main(String[] args) throws PrimesNotCalculatedException {

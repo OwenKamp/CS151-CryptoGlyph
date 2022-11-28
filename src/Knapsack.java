@@ -1,13 +1,13 @@
 import java.util.Arrays;
-import java.util.Random;
 import java.util.stream.Stream;
+import java.util.Random;
 
 // This will be worked on by David
 public class Knapsack extends Cryptography {
 //	m and n are relatively prime
 //	n is greater than the sum of all elements in the super- increasing knapsack.
 //	To get the general knapsack, you need to mod the result of sik and multiplier(m) by n.  
-	private static Random r = new Random();
+	private static java.util.Random r = new java.util.Random();
 
 	protected static final byte[] MASKS = { ((byte) 0b00000001), ((byte) 0b00000010), ((byte) 0b00000100),
 			((byte) 0b00001000), ((byte) 0b00010000), ((byte) 0b00100000), ((byte) 0b01000000), ((byte) 0b10000000) };
@@ -15,7 +15,7 @@ public class Knapsack extends Cryptography {
 //	https://www.geeksforgeeks.org/copyright-information/?ref=footer
 //	https://www.geeksforgeeks.org/java-program-to-display-all-prime-numbers-from-1-to-n/
 	public static float generateMultiplier() {
-		return r.nextInt(1, 2) + (r.nextFloat()*0.5f) + 0.01f;
+		return r.nextInt(3) + 1 + (r.nextFloat()*0.5f) + 0.01f;
 	}
 
 //	For the Super-Increasing Knapsack generate an int array where the next element
@@ -90,7 +90,6 @@ public class Knapsack extends Cryptography {
 		for (int i = 0; i < len; i++) {
 //			get that letter as a binary 8-bit representation
 			byte c = (byte) plainText.charAt(i);
-			System.out.println("DESIRED OUTPUT: "+charToBinaryStr((char) c));
 //			for each bit in each letter starting right to left,
 			for (int j = 0; j < 8; j++) {
 //				if the bit is 1,
@@ -134,20 +133,21 @@ public class Knapsack extends Cryptography {
 	}
 
 	public static char solveKnapsack(long encrypted, long[] sik) {
+		byte ret = 0x00;
 		long m = sik[8];
-		System.out.println("m is: " + Long.toString(m));
 		long n = sik[9];
-		System.out.println("n is: " + Long.toString(n));
-		long conversionFactor = (long)(n/m);
+		long conversionFactor = MultiplicativeInverse.mult_inverse_nm(n, m);
 		long sum = (encrypted * conversionFactor) % n;
-		int i=0;
-		while(sum != 0) {
-			if(sik[7-i] > sum) {
-				
+		int i = 0;
+		while(sum > 0) {
+			if (sum >= sik[7-i]) {
+				long v = sik[7-i];
+				ret = (byte)(ret | MASKS[i]);
+				sum = sum - v;
 			}
+			i++;
 		}
-		
-		return 'c';
+		return (char) ret;
 		}
 
 	public static String longArrayToCsv(long[] longArray) {
@@ -183,14 +183,12 @@ public class Knapsack extends Cryptography {
 		Knapsack k = new Knapsack();
 		long[] sik = Knapsack.generateSIK();
 		long[] gk = Knapsack.generateGK(sik);
-		System.out.println("SIK: " + Knapsack.longArrayToCsv(sik));
-		System.out.println("GK: " + Knapsack.longArrayToCsv(gk));
-		
-		long[] encrypted = Knapsack.csvToLongArray(k.encrypt("a", Knapsack.longArrayToCsv(gk)));
-		System.out.println("Encrypted: " + Arrays.toString(encrypted));
-		System.out.println("ENCRYPTED 1 " + Knapsack.charToBinaryStr(Knapsack.solveKnapsack(encrypted[0], sik)));
-//		System.out.println(k.decrypt(Knapsack.intArrayToCsv(encrypted), Knapsack.intArrayToCsv(sik)));
-//		System.out.println(Knapsack.solveKnapsack(encrypted[0],sik));
+		String wordToEncrypt = "Hello There Warshawsky";
+		System.out.println(wordToEncrypt);
+		String encrypted = k.encrypt(wordToEncrypt, Knapsack.longArrayToCsv(gk));
+		System.out.println("ENCRYPTED: " + encrypted);
+		String decrypted = k.decrypt(encrypted, Knapsack.longArrayToCsv(sik));
+		System.out.println("DECRYPTED: " + decrypted);
 		
 //		https://stackoverflow.com/questions/36019032/how-to-iterate-over-all-bits-of-a-byte-in-java
 
