@@ -1,4 +1,4 @@
-public class RSA {
+public class RSA extends Cryptography {
 	// for the sake of getting it to work, I decided to set the values
 	// we could overwrite them manually by having some method "fix" them
 	// maybe an update() method that takes all of the text boxes in GUIand fills in?
