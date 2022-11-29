@@ -5,16 +5,16 @@ public class A51 implements Cryptography {
     private static int[] registerY = new int[22];
     private static int[] registerZ = new int[23];
 
+    // method to encrypt a plaintext using the A51 algorithm
     public static String encrypt(String plaintext, String key) {
-        String binaryPlaintext = Converter.stringToBinaryString(plaintext);
-        char[] binaryPlaintextArray = binaryPlaintext.toCharArray();
+        String binaryPlaintext = Converter.stringToBinaryString(plaintext);                                         // convert plaintext into a string of binary digits
+        char[] binaryPlaintextArray = binaryPlaintext.toCharArray();                                                // convert string into char array
         StringBuilder ciphertextBuilder = new StringBuilder();
 
-        initializeRegisters(key);
+        initializeRegisters(key);                                                                                   // initialize each register
 
-        for (int i=0;i<binaryPlaintextArray.length;i++) {
-            //System.out.println(registerX[8] + registerY[10] + registerZ[10]);
-            if (registerX[8] + registerY[10] + registerZ[10] < 2) {
+        for (int i=0;i<binaryPlaintextArray.length;i++) {                                                           // for each binary digit in the plaintext, xor it with keystream bit
+            if (registerX[8] + registerY[10] + registerZ[10] < 2) {                                                 // figure out majority, anything with majority steps
                 //anything with 0 steps
                 if (registerX[8] == 0) {
                     xSteps();
@@ -25,7 +25,7 @@ public class A51 implements Cryptography {
                 if (registerZ[10] == 0) {
                     zSteps();
                 }
-            } else {
+            } else {                                                                                                // if majority is 1
                 if (registerX[8] == 1) {
                     xSteps();
                 }
@@ -36,25 +36,22 @@ public class A51 implements Cryptography {
                     zSteps();
                 }
             }
-            int keyStreamBit = registerX[18] ^ registerY[21] ^ registerZ[22];
-            //System.out.println("keyStreamBit: " + keyStreamBit + "\nbinaryPlaintextArray: " + binaryPlaintextArray[i]);
-            char binaryNumber = (char) (keyStreamBit ^ binaryPlaintextArray[i]);
-            ciphertextBuilder.append(binaryNumber);
-            //System.out.println(ciphertextBuilder.toString());
+            int keyStreamBit = registerX[18] ^ registerY[21] ^ registerZ[22];                                       // generate keystream bit
+            char binaryNumber = (char) (keyStreamBit ^ binaryPlaintextArray[i]);                                    // xor keystream bit with plaintext bit
+            ciphertextBuilder.append(binaryNumber);                                                                 // append bit to ciphertext
         }
-        //ciphertext = ciphertextBuilder.toString();
         return ciphertextBuilder.toString();
     }
 
+    // method to decrypt a plaintext using the A51 algorithm
     public static String decrypt(String ciphertext, String key) {
-        char[] ciphertextArray = ciphertext.toCharArray();
+        char[] ciphertextArray = ciphertext.toCharArray();                                                          // convert ciphertext string into a character array
         StringBuilder plaintextBuilder = new StringBuilder();
 
-        initializeRegisters(key);
+        initializeRegisters(key);                                                                                   // initialize the registers
 
-        for (int i=0;i<ciphertextArray.length;i++) {
-            //System.out.println(registerX[8] + registerY[10] + registerZ[10]);
-            if (registerX[8] + registerY[10] + registerZ[10] < 2) {
+        for (int i=0;i<ciphertextArray.length;i++) {                                                                // for each binary digit in ciphertext, xor it with keystream bit
+            if (registerX[8] + registerY[10] + registerZ[10] < 2) {                                                 // figure out majority, anything with majority steps
                 //anything with 0 steps
                 if (registerX[8] == 0) {
                     xSteps();
@@ -65,7 +62,7 @@ public class A51 implements Cryptography {
                 if (registerZ[10] == 0) {
                     zSteps();
                 }
-            } else {
+            } else {                                                                                                // if majority is 1
                 if (registerX[8] == 1) {
                     xSteps();
                 }
@@ -76,16 +73,14 @@ public class A51 implements Cryptography {
                     zSteps();
                 }
             }
-            int keyStreamBit = registerX[18] ^ registerY[21] ^ registerZ[22];
-            //System.out.println("keyStreamBit: " + keyStreamBit + "\nbinaryPlaintextArray: " + binaryPlaintextArray[i]);
-            char binaryNumber = (char) (keyStreamBit ^ ciphertextArray[i]);
-            plaintextBuilder.append(binaryNumber);
-            //System.out.println(ciphertextBuilder.toString());
+            int keyStreamBit = registerX[18] ^ registerY[21] ^ registerZ[22];                                       // generate keystream bit
+            char binaryNumber = (char) (keyStreamBit ^ ciphertextArray[i]);                                         // xor keystream bit with plaintext bit
+            plaintextBuilder.append(binaryNumber);                                                                  // append bit to ciphertext
         }
-        //plaintext = Converter.binaryStringToString(plaintextBuilder.toString());
         return Converter.binaryStringToString(plaintextBuilder.toString());
     }
 
+    // method to make x register "step"
     public static void xSteps() {
         int temp = registerX[13] ^ registerX[16] ^ registerX[17] ^ registerX[18];
         for (int i=18;i>0;i--) {
@@ -94,6 +89,7 @@ public class A51 implements Cryptography {
         registerX[0] = temp;
     }
 
+    // method to make the y register "step"
     public static void ySteps() {
         int temp = registerY[20] ^ registerY[21];
         for (int i=21;i>0;i--) {
@@ -102,6 +98,7 @@ public class A51 implements Cryptography {
         registerY[0] = temp;
     }
 
+    // method to make the z register "step"
     public static void zSteps() {
         int temp = registerZ[7] ^ registerZ[20] ^ registerZ[21] ^ registerZ[22];
         for (int i=22;i>0;i--) {
@@ -110,6 +107,7 @@ public class A51 implements Cryptography {
         registerZ[0] = temp;
     }
 
+    // function to initialize the registers using the key
     public static void initializeRegisters(String key) {
         for (int i=0;i<19;i++) {
             registerX[i] = key.charAt(i) - '0';
@@ -124,11 +122,15 @@ public class A51 implements Cryptography {
         }
     }
 
-    public static void main(String[] args) {
-        A51 tester = new A51();
-        String ciphertext = tester.encrypt("hello my name is john doe and i am doing some testing", "1111111111111111111000000000000000000000011111111111111111111111");
-        System.out.println("Ciphertext: " + ciphertext);
-        String plaintext = tester.decrypt(ciphertext, "1111111111111111111000000000000000000000011111111111111111111111");
-        System.out.println(plaintext);
+    public static int[] getRegisterX() {
+        return registerX;
+    }
+
+    public static int[] getRegisterY() {
+        return registerY;
+    }
+
+    public static int[] getRegisterZ() {
+        return registerZ;
     }
 }

@@ -340,6 +340,25 @@ public class AES {
 
     }
 
+    public static byte gMul(byte x, byte y) {
+        byte p=0;
+
+        for (int i=0;i<8;i++) {
+            if ((y & 1) != 0) {
+                p ^= x;
+            }
+
+            Boolean hiBitSet = (x & 0x80) != 0;
+            x <<= 1;
+            if (hiBitSet) {
+                x ^= 0x1B; /* x^8 + x^4 + x^3 + x + 1 */
+            }
+            y >>= 1;
+        }
+
+        return p;
+    }
+
     public static byte[][] addRoundKey(byte[][] byteArray, byte[][] key) {
         for (int i=0;i< byteArray.length;i++) {
             for (int j=0;j< byteArray[i].length;j++) {

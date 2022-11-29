@@ -3,6 +3,7 @@ import java.nio.ByteBuffer;
 import java.util.HashMap;
 
 public class Converter {
+    // method to convert a string to its binary representation
     public static String stringToBinaryString(String str) {
         StringBuilder binaryString = new StringBuilder();
         char[] chars = str.toCharArray();
@@ -12,14 +13,12 @@ public class Converter {
             while (letterBuilder.length() < 8) {
                 letterBuilder.insert(0, "0");
             }
-//            if (letterBuilder.length() < 8) {
-//                letterBuilder.insert(0, "0");
-//            }
             binaryString.append(letterBuilder);
         }
         return binaryString.toString();
     }
 
+    // method to convert a string of binary digits to a string of regular characters
     public static String binaryStringToString(String str) {
         String regularString = "";
         for (int i = 0; i < str.length()/8; i++) {

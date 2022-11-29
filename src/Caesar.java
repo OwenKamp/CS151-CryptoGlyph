@@ -1,6 +1,8 @@
 import static java.lang.String.valueOf;
 
 public class Caesar implements Cryptography {
+
+    // method to encrypt plaintext using Caesar's algorithm
     public static String encrypt(String plaintext, String key) {
         int Key = Integer.parseInt(key);
         plaintext = plaintext.toUpperCase();
@@ -12,10 +14,10 @@ public class Caesar implements Cryptography {
                 plaintextArray[i] -= 26;
             }
         }
-        //ciphertext = valueOf(plaintextArray);
         return valueOf(plaintextArray);
     }
 
+    // method to decrypt ciphertext using Caesar's algorithm
     public static String decrypt(String ciphertext, String key) {
         int Key = Integer.parseInt(key);
         ciphertext = ciphertext.toUpperCase();
@@ -27,15 +29,6 @@ public class Caesar implements Cryptography {
                 ciphertextArray[i] += 26;
             }
         }
-        //plaintext = valueOf(ciphertextArray);
         return valueOf(ciphertextArray);
-    }
-
-    public static void main(String[] args) {
-        Caesar cs = new Caesar();
-        String encrypted = cs.encrypt("Testing", "3");
-        System.out.println("Tester: " + encrypted);
-        String decrypted = cs.decrypt(encrypted, "3");
-        System.out.println("After decryption: " + decrypted);
     }
 }
