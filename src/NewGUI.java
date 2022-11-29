@@ -12,11 +12,15 @@ public class NewGUI extends JFrame{
     ComponentScreen introComponents;
 
     ComponentScreen symmetricAlgorithmComponents;
+    ComponentScreen asymmetricAlgorithmComponents;
     AlgorithmScreen algorithmComponents;
+    Navigation n;
+    boolean algorithmSelected = false;
+//    For symmetric and asymmetric
+    Boolean[] elementsCreated = {false,false};
     public NewGUI() {
         // setting up initial screen
         init();
-
 
         JLabel sidePanel = new JLabel();
         sidePanel.setBounds(15,0,135, 800);
@@ -40,12 +44,6 @@ public class NewGUI extends JFrame{
         homeButton.setBounds(15, 200, 135, 50);
         //setComponentZOrder(homeButton, 2);
 
-        JLabel homeButtonSelected = new JLabel();
-        homeButtonSelected.setBackground(new Color(192, 27, 54));
-        homeButtonSelected.setBounds(0, 200, 15, 50);
-        homeButtonSelected.setOpaque(true);
-        //setComponentZOrder(homeButtonSelected, 2);
-
         JLabel homePNG = new JLabel();
         homePNG.setIcon(new ImageIcon("src/home.png"));
         homePNG.setBounds(25,210,30,30);
@@ -59,34 +57,22 @@ public class NewGUI extends JFrame{
         symmetric.setForeground(Color.RED);
         symmetric.setBounds(15, 250, 135, 50);
 
-//        JLabel symmetricLabel = new JLabel("Symmetric");
-//        symmetricLabel.setForeground(Color.RED);
-//        symmetricLabel.setBackground(Color.WHITE);
-//        symmetricLabel.setBounds(65,165,85,20);
-//        symmetricLabel.setOpaque(true);
-
         JLabel keyPNG = new JLabel();
         keyPNG.setIcon(new ImageIcon("src/key.png"));
         keyPNG.setBounds(25,260,30,30);
-        keyPNG.setBackground(Color.BLACK);
+        keyPNG.setBackground(Color.WHITE);
         keyPNG.setOpaque(true);
 
-        JLabel symmetricSelected = new JLabel();
-        symmetricSelected.setBackground(Color.BLACK);
-        //symmetricSelected.setBackground(new Color(192,27,54));
-        symmetricSelected.setBounds(0, 250, 15, 50);
-        symmetricSelected.setOpaque(true);
+        JLabel key1PNG = new JLabel();
+        key1PNG.setIcon(new ImageIcon("src/key.png"));
+        key1PNG.setBounds(25,310,30,30);
+        key1PNG.setBackground(Color.WHITE);
+        key1PNG.setOpaque(true);
 
         JButton asymmetric = new JButton("    Asymmetric");
         asymmetric.setBackground(Color.BLACK);
         asymmetric.setForeground(Color.RED);
         asymmetric.setBounds(15, 300, 135, 50);
-
-        JLabel asymmetricSelected = new JLabel();
-        //asymmetricSelected.setBackground(new Color(192, 27, 54));
-        asymmetricSelected.setBackground(Color.BLACK);
-        asymmetricSelected.setBounds(0, 300, 15, 50);
-        asymmetricSelected.setOpaque(true);
 
         JLabel bottomPanelSegment = new JLabel();
         bottomPanelSegment.setBackground(Color.BLACK);
@@ -121,12 +107,10 @@ public class NewGUI extends JFrame{
 
         baseComponents.add(keyPNG);
         baseComponents.add(homePNG);
+        baseComponents.add(key1PNG);
         baseComponents.add(homeButton);
-        baseComponents.add(homeButtonSelected);
         baseComponents.add(symmetric);
-        baseComponents.add(symmetricSelected);
         baseComponents.add(asymmetric);
-        baseComponents.add(asymmetricSelected);
 //        baseComponents.add(symmetricLabel);
         baseComponents.add(projectName);
         baseComponents.add(logo);
@@ -143,7 +127,33 @@ public class NewGUI extends JFrame{
         symmetric.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                symmetricScreen(symmetricSelected, homeButtonSelected);
+                symmetricScreen();
+            }
+        });
+
+        asymmetric.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setAlgorithmSelected(false);
+                n.navigate("ASYMMETRIC");
+                symmetricAlgorithmComponents.hide();
+                algorithmComponents.hide();
+                introComponents.hide();
+
+
+            }
+        });
+        homeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setAlgorithmSelected(false);
+                n.navigate("HOME");
+                algorithmComponents.hide();
+                symmetricAlgorithmComponents.hide();
+                asymmetricAlgorithmComponents.hide();
+                introComponents.show();
+
+
             }
         });
 
@@ -162,59 +172,65 @@ public class NewGUI extends JFrame{
 
 //    public void asymmetricScreen()
 
-    public void symmetricScreen(JLabel symmetricSelected, JLabel homeButtonSelected) {
+    public void symmetricScreen() {
         introComponents.hide();
-        homeButtonSelected.setBackground(Color.BLACK);
-        symmetricSelected.setBackground(new Color(192,27,54));
+        asymmetricAlgorithmComponents.hide();
+        algorithmComponents.hide();
+        n.navigate("SYMMETRIC");
+        if(elementsCreated[0] == false) {
+            JLabel caesarsPNG = new JLabel();
+            caesarsPNG.setIcon(new ImageIcon("src/caesarsLogo.png"));
+            caesarsPNG.setBounds(225, 200, 100, 100);
+            caesarsPNG.setBackground(Color.WHITE);
+            caesarsPNG.setOpaque(true);
 
-        JLabel caesarsPNG = new JLabel();
-        caesarsPNG.setIcon(new ImageIcon("src/caesarsLogo.png"));
-        caesarsPNG.setBounds(225, 200, 100, 100);
-        caesarsPNG.setBackground(Color.WHITE);
-        caesarsPNG.setOpaque(true);
+            JButton caesarsButton = new JButton("Caesar's Cipher");
+            caesarsButton.setForeground(Color.BLACK);
+            caesarsButton.setBackground(new Color(192, 27, 54));
+            caesarsButton.setBounds(200, 300, 150, 30);
 
-        JButton caesarsButton = new JButton("Caesar's Cipher");
-        caesarsButton.setForeground(Color.BLACK);
-        caesarsButton.setBackground(new Color(192,27,54));
-        caesarsButton.setBounds(200,300,150,30);
+            JLabel a51PNG = new JLabel();
+            a51PNG.setIcon(new ImageIcon("src/a51.png"));
+            a51PNG.setBounds(500, 200, 250, 100);
+            a51PNG.setOpaque(true);
 
-        JLabel a51PNG = new JLabel();
-        a51PNG.setIcon(new ImageIcon("src/a51.png"));
-        a51PNG.setBounds(500, 200, 250, 100);
-        a51PNG.setOpaque(true);
+            JButton a51Button = new JButton("A5/1 Cipher");
+            a51Button.setForeground(Color.BLACK);
+            a51Button.setBackground(new Color(192, 27, 54));
+            a51Button.setBounds(550, 300, 150, 30);
+            a51Button.setOpaque(true);
 
-        JButton a51Button = new JButton("A5/1 Cipher");
-        a51Button.setForeground(Color.BLACK);
-        a51Button.setBackground(new Color(192,27,54));
-        a51Button.setBounds(550,300, 150, 30);
-        a51Button.setOpaque(true);
+            symmetricAlgorithmComponents.add(caesarsPNG);
+            symmetricAlgorithmComponents.add(caesarsButton);
+            symmetricAlgorithmComponents.add(a51PNG);
+            symmetricAlgorithmComponents.add(a51Button);
 
-        symmetricAlgorithmComponents.add(caesarsPNG);
-        symmetricAlgorithmComponents.add(caesarsButton);
-        symmetricAlgorithmComponents.add(a51PNG);
-        symmetricAlgorithmComponents.add(a51Button);
+            caesarsButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    symmetricAlgorithmComponents.hide();
+                    String algorithm = "Caesar's Cipher";
+                    cryptographyWindow(algorithm);
+                }
+            });
+
+            a51Button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    setAlgorithmSelected(true);
+                    symmetricAlgorithmComponents.hide();
+                    String algorithm = "A5/1 Cipher";
+                    cryptographyWindow(algorithm);
+                }
+            });
+            elementsCreated[0] = true;
+        }
         symmetricAlgorithmComponents.show();
 
-        caesarsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                symmetricAlgorithmComponents.hide();
-                String algorithm = "Caesar's Cipher";
-                cryptographyWindow(algorithm);
-            }
-        });
-
-        a51Button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                symmetricAlgorithmComponents.hide();
-                String algorithm = "A5/1 Cipher";
-                cryptographyWindow(algorithm);
-            }
-        });
     }
 
     public void cryptographyWindow(String algorithm) {
+        algorithmSelected = true;
         algorithmComponents.setAlgorithmName(algorithm);
         algorithmComponents.show();
     }
@@ -228,10 +244,18 @@ public class NewGUI extends JFrame{
         baseComponents = new ComponentScreen(this);
         introComponents = new ComponentScreen(this);
         symmetricAlgorithmComponents = new ComponentScreen(this);
+        asymmetricAlgorithmComponents = new ComponentScreen(this);
         algorithmComponents = new AlgorithmScreen(this);
+        n = new Navigation(this);
 
     }
 
+    boolean isAlgorithmSelected(){
+        return algorithmSelected;
+    }
+    void setAlgorithmSelected(boolean b){
+        algorithmSelected = b;
+    }
 
     public static void main(String[] args) {
         NewGUI graphicalInterface = new NewGUI();
