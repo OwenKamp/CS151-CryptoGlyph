@@ -14,7 +14,7 @@ public class AlgorithmScreen extends ComponentScreen
     public JTextArea decryptionOutput;
 
 
-    public AlgorithmScreen(JFrame f){
+    public AlgorithmScreen(NewGUI f){
         super(f);
 //        This section is the constant JComponents that do not change
         JLabel plaintext = new JLabel("Plaintext");
@@ -96,7 +96,20 @@ public class AlgorithmScreen extends ComponentScreen
 
 
 //        These JComponents change.
+        JTextArea encryptionOutput = new JTextArea("");
+        encryptionOutput.setBackground(new Color(255,255,255,40));
+        encryptionOutput.setBounds(200, 550,500,150);
+        encryptionOutput.setOpaque(true);
 
+        JLabel eOut = new JLabel("Output");
+        eOut.setFont(new Font("Serif2", Font.BOLD, 20));
+        eOut.setBounds(200, 500, 150, 30);
+        eOut.setBackground(Color.WHITE);
+        eOut.setForeground(Color.BLACK);
+        eOut.setOpaque(true);
+
+
+//        1000, 500, 150, 30)
         decryptionOutput = new JTextArea("");
         decryptionOutput.setBackground(new Color(255,255,255,40));
         decryptionOutput.setBounds(1000, 550,500,150);
@@ -104,6 +117,8 @@ public class AlgorithmScreen extends ComponentScreen
 
 //        Show the decryptionOutput field, just with blank output.
         add(output);
+        add(eOut);
+        add(encryptionOutput);
         add(decryptionOutput);
 
         add(algorithmName);
@@ -118,7 +133,7 @@ public class AlgorithmScreen extends ComponentScreen
         add(decryptKey);
         add(decryptKeyField);
         add(divider);
-
+        update();
 
         encryptButton.addActionListener(new ActionListener() {
             @Override
@@ -138,7 +153,7 @@ public class AlgorithmScreen extends ComponentScreen
                         ciphertext = a51.encrypt(plaintext, key);
                         break;
                 }
-                ciphertextField.setText(ciphertext);
+                encryptionOutput.setText(ciphertext);
                 update();
 
             }

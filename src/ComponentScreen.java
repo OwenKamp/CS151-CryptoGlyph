@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class ComponentScreen{
-	private JFrame f;
+	private NewGUI f;
 	private ArrayList<JComponent> componentList = new ArrayList<>();
 	
-	public ComponentScreen(JFrame f) {
+	public ComponentScreen(NewGUI f) {
 		this.f = f;
 	}
 	
