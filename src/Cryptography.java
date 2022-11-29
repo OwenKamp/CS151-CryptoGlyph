@@ -1,7 +1,9 @@
-public abstract class Cryptography {
-    public String plaintext;
-    public String ciphertext;
+public interface Cryptography {
+    public static String encrypt(String plaintext, String key) {
+        return null;
+    }
 
-    public abstract String encrypt(String plaintext, String key);
-    public abstract String decrypt(String ciphertext, String key);
+    public static String decrypt(String ciphertext, String key) {
+        return null;
+    }
 }

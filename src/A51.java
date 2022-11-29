@@ -1,11 +1,11 @@
 import java.util.Arrays;
 
-public class A51 extends Cryptography {
-    private int[] registerX = new int[19];
-    private int[] registerY = new int[22];
-    private int[] registerZ = new int[23];
+public class A51 implements Cryptography {
+    private static int[] registerX = new int[19];
+    private static int[] registerY = new int[22];
+    private static int[] registerZ = new int[23];
 
-    public String encrypt(String plaintext, String key) {
+    public static String encrypt(String plaintext, String key) {
         String binaryPlaintext = Converter.stringToBinaryString(plaintext);
         char[] binaryPlaintextArray = binaryPlaintext.toCharArray();
         StringBuilder ciphertextBuilder = new StringBuilder();
@@ -42,11 +42,11 @@ public class A51 extends Cryptography {
             ciphertextBuilder.append(binaryNumber);
             //System.out.println(ciphertextBuilder.toString());
         }
-        ciphertext = ciphertextBuilder.toString();
-        return ciphertext;
+        //ciphertext = ciphertextBuilder.toString();
+        return ciphertextBuilder.toString();
     }
 
-    public String decrypt(String ciphertext, String key) {
+    public static String decrypt(String ciphertext, String key) {
         char[] ciphertextArray = ciphertext.toCharArray();
         StringBuilder plaintextBuilder = new StringBuilder();
 
@@ -82,11 +82,11 @@ public class A51 extends Cryptography {
             plaintextBuilder.append(binaryNumber);
             //System.out.println(ciphertextBuilder.toString());
         }
-        plaintext = Converter.binaryStringToString(plaintextBuilder.toString());
-        return plaintext;
+        //plaintext = Converter.binaryStringToString(plaintextBuilder.toString());
+        return Converter.binaryStringToString(plaintextBuilder.toString());
     }
 
-    public void xSteps() {
+    public static void xSteps() {
         int temp = registerX[13] ^ registerX[16] ^ registerX[17] ^ registerX[18];
         for (int i=18;i>0;i--) {
             registerX[i] = registerX[i-1];
@@ -94,7 +94,7 @@ public class A51 extends Cryptography {
         registerX[0] = temp;
     }
 
-    public void ySteps() {
+    public static void ySteps() {
         int temp = registerY[20] ^ registerY[21];
         for (int i=21;i>0;i--) {
             registerY[i] = registerY[i-1];
@@ -102,7 +102,7 @@ public class A51 extends Cryptography {
         registerY[0] = temp;
     }
 
-    public void zSteps() {
+    public static void zSteps() {
         int temp = registerZ[7] ^ registerZ[20] ^ registerZ[21] ^ registerZ[22];
         for (int i=22;i>0;i--) {
             registerZ[i] = registerZ[i-1];
@@ -110,7 +110,7 @@ public class A51 extends Cryptography {
         registerZ[0] = temp;
     }
 
-    public void initializeRegisters(String key) {
+    public static void initializeRegisters(String key) {
         for (int i=0;i<19;i++) {
             registerX[i] = key.charAt(i) - '0';
         }

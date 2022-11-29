@@ -1,7 +1,7 @@
 import static java.lang.String.valueOf;
 
-public class Caesar extends Cryptography {
-    public String encrypt(String plaintext, String key) {
+public class Caesar implements Cryptography {
+    public static String encrypt(String plaintext, String key) {
         int Key = Integer.parseInt(key);
         plaintext = plaintext.toUpperCase();
         char[] plaintextArray = plaintext.toCharArray();
@@ -12,11 +12,11 @@ public class Caesar extends Cryptography {
                 plaintextArray[i] -= 26;
             }
         }
-        ciphertext = valueOf(plaintextArray);
-        return ciphertext;
+        //ciphertext = valueOf(plaintextArray);
+        return valueOf(plaintextArray);
     }
 
-    public String decrypt(String ciphertext, String key) {
+    public static String decrypt(String ciphertext, String key) {
         int Key = Integer.parseInt(key);
         ciphertext = ciphertext.toUpperCase();
         char[] ciphertextArray = ciphertext.toCharArray();
@@ -27,8 +27,8 @@ public class Caesar extends Cryptography {
                 ciphertextArray[i] += 26;
             }
         }
-        plaintext = valueOf(ciphertextArray);
-        return plaintext;
+        //plaintext = valueOf(ciphertextArray);
+        return valueOf(ciphertextArray);
     }
 
     public static void main(String[] args) {

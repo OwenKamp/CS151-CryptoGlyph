@@ -12,7 +12,7 @@ public class GUI {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setTitle("CryptoGlyph");
 
-        frame.setContentPane(new JLabel(new ImageIcon("src\\background.png")));
+        frame.setContentPane(new JLabel(new ImageIcon("src\\img\\background.png")));
         frame.setLayout(null);
 
         //JPanel homescreenBackground = new JPanel();
@@ -48,7 +48,7 @@ public class GUI {
         //frame.setComponentZOrder(homeButtonSelected, 2);
 
         JLabel homePNG = new JLabel();
-        homePNG.setIcon(new ImageIcon("src\\home.png"));
+        homePNG.setIcon(new ImageIcon("src\\img\\home.png"));
         homePNG.setBounds(25,210,30,30);
         homePNG.setBackground(Color.BLACK);
         homePNG.setOpaque(true);
@@ -66,7 +66,7 @@ public class GUI {
         symmetricLabel.setOpaque(true);
 
         JLabel keyPNG = new JLabel();
-        keyPNG.setIcon(new ImageIcon("key.png"));
+        keyPNG.setIcon(new ImageIcon("src\\img\\key.png"));
         keyPNG.setBounds(25,260,30,30);
         keyPNG.setBackground(Color.BLACK);
         keyPNG.setOpaque(true);
@@ -96,7 +96,7 @@ public class GUI {
         JLabel logo = new JLabel();
         logo.setBackground(new Color(192,27,54));
         logo.setBounds(180,15,105,105);
-        logo.setIcon(new ImageIcon("src\\logo.png"));
+        logo.setIcon(new ImageIcon("src\\img\\logo.png"));
         logo.setOpaque(true);
 
         JLabel projectName = new JLabel("    CryptoGlyph");
@@ -162,7 +162,7 @@ public class GUI {
         symmetricSelected.setBackground(new Color(192,27,54));
 
         JLabel caesarsPNG = new JLabel();
-        caesarsPNG.setIcon(new ImageIcon("src\\caesarsLogo.png"));
+        caesarsPNG.setIcon(new ImageIcon("src\\img\\caesarsLogo.png"));
         caesarsPNG.setBounds(225, 200, 100, 100);
         caesarsPNG.setBackground(Color.WHITE);
         caesarsPNG.setOpaque(true);
@@ -173,7 +173,7 @@ public class GUI {
         caesarsButton.setBounds(200,300,150,30);
 
         JLabel a51PNG = new JLabel();
-        a51PNG.setIcon(new ImageIcon("src\\a51.png"));
+        a51PNG.setIcon(new ImageIcon("src\\img\\a51.png"));
         a51PNG.setBounds(500, 200, 250, 100);
         a51PNG.setOpaque(true);
 
