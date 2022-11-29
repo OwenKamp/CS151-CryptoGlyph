@@ -59,11 +59,11 @@ public class NewGUI extends JFrame{
         symmetric.setForeground(Color.RED);
         symmetric.setBounds(15, 250, 135, 50);
 
-        JLabel symmetricLabel = new JLabel("Symmetric");
-        symmetricLabel.setForeground(Color.RED);
-        symmetricLabel.setBackground(Color.WHITE);
-        symmetricLabel.setBounds(65,165,85,20);
-        symmetricLabel.setOpaque(true);
+//        JLabel symmetricLabel = new JLabel("Symmetric");
+//        symmetricLabel.setForeground(Color.RED);
+//        symmetricLabel.setBackground(Color.WHITE);
+//        symmetricLabel.setBounds(65,165,85,20);
+//        symmetricLabel.setOpaque(true);
 
         JLabel keyPNG = new JLabel();
         keyPNG.setIcon(new ImageIcon("src/key.png"));
@@ -127,7 +127,7 @@ public class NewGUI extends JFrame{
         baseComponents.add(symmetricSelected);
         baseComponents.add(asymmetric);
         baseComponents.add(asymmetricSelected);
-        baseComponents.add(symmetricLabel);
+//        baseComponents.add(symmetricLabel);
         baseComponents.add(projectName);
         baseComponents.add(logo);
         baseComponents.add(sidePanel);
