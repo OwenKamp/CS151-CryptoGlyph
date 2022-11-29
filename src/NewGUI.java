@@ -12,6 +12,7 @@ public class NewGUI extends JFrame{
     ComponentScreen introComponents;
 
     ComponentScreen symmetricAlgorithmComponents;
+    AlgorithmScreen algorithmComponents;
     public NewGUI() {
         // setting up initial screen
         init();
@@ -118,12 +119,6 @@ public class NewGUI extends JFrame{
         introInformation.setBounds(200,260,500, 90);
         introInformation.setOpaque(true);
 
-//        JLabel introInformation = new JLabel("CryptoGlyph is a cryptographic application that allows users to encrypt and decrypt data\nusing numerous algorithms");
-//        introInformation.setForeground(Color.BLACK);
-//        introInformation.setBackground(Color.WHITE);
-//        introInformation.setBounds(200,260,500, 60);
-//        introInformation.setOpaque(true);
-
         baseComponents.add(keyPNG);
         baseComponents.add(homePNG);
         baseComponents.add(homeButton);
@@ -165,6 +160,8 @@ public class NewGUI extends JFrame{
         revalidate();
     }
 
+//    public void asymmetricScreen()
+
     public void symmetricScreen(JLabel symmetricSelected, JLabel homeButtonSelected) {
         introComponents.hide();
         homeButtonSelected.setBackground(Color.BLACK);
@@ -198,191 +195,28 @@ public class NewGUI extends JFrame{
         symmetricAlgorithmComponents.add(a51Button);
         symmetricAlgorithmComponents.show();
 
-        List<JComponent> components = new ArrayList<>();
-        components.add(caesarsPNG);
-        components.add(caesarsButton);
-        components.add(a51Button);
-        components.add(a51PNG);
-
         caesarsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                symmetricAlgorithmComponents.hide();
                 String algorithm = "Caesar's Cipher";
-                cryptographyWindow(algorithm, components);
-                //cryptographyWindow(String algorithm, JFrame frame, List<JComponent> components);
+                cryptographyWindow(algorithm);
             }
         });
 
         a51Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                symmetricAlgorithmComponents.hide();
                 String algorithm = "A5/1 Cipher";
-                cryptographyWindow(algorithm, components);
+                cryptographyWindow(algorithm);
             }
         });
     }
 
-    public void cryptographyWindow(String algorithm, List<JComponent> components) {
-        for (Component component: components) {
-            remove(component);
-        }
-
-        JLabel algorithmName = new JLabel(algorithm);
-        algorithmName.setBounds(200,200,300,50);
-        algorithmName.setFont(new Font("Serif2", Font.BOLD, 25));
-        algorithmName.setForeground(Color.BLACK);
-        algorithmName.setBackground(Color.WHITE);
-        algorithmName.setOpaque(true);
-
-        JLabel plaintext = new JLabel("Plaintext");
-        plaintext.setBounds(200,300,150,30);
-        plaintext.setBackground(new Color(192,27,54));
-        plaintext.setForeground(Color.BLACK);
-        plaintext.setOpaque(true);
-
-        JTextField plaintextField = new JTextField();
-        plaintextField.setBounds(400, 300, 150, 30);
-        plaintextField.setOpaque(true);
-
-        JLabel encryptKey = new JLabel("Key");
-        encryptKey.setBounds(200,350,150,30);
-        encryptKey.setBackground(new Color(192,27,54));
-        encryptKey.setForeground(Color.BLACK);
-        encryptKey.setOpaque(true);
-
-        JTextField encryptKeyField = new JTextField();
-        encryptKeyField.setBounds(400, 350, 150, 30);
-        encryptKeyField.setOpaque(true);
-
-        JButton encryptButton = new JButton("Encrypt");
-        encryptButton.setBackground(new Color(192,27,54));
-        encryptButton.setForeground(Color.BLACK);
-        encryptButton.setBounds(300,400,150,30);
-        encryptButton.setOpaque(true);
-
-        JLabel divider = new JLabel();
-        divider.setBackground(Color.BLACK);
-        divider.setBounds(770,300,10,450);
-        divider.setOpaque(true);
-
-        JLabel ciphertext = new JLabel("Ciphertext");
-        ciphertext.setForeground(Color.BLACK);
-        ciphertext.setBackground(new Color(192,27,54));
-        ciphertext.setBounds(1000,300,150,30);
-        ciphertext.setOpaque(true);
-
-        JTextField ciphertextField = new JTextField();
-        ciphertextField.setBounds(1200,300,150,30);
-        ciphertextField.setOpaque(true);
-
-        JLabel decryptKey = new JLabel("Key");
-        decryptKey.setBackground(new Color(192,27,54));
-        decryptKey.setForeground(Color.BLACK);
-        decryptKey.setBounds(1000,350,150,30);
-        decryptKey.setOpaque(true);
-
-        JTextField decryptKeyField = new JTextField();
-        decryptKeyField.setBounds(1200,350,150,30);
-        decryptKeyField.setOpaque(true);
-
-        JButton decryptButton = new JButton("Decrypt");
-        decryptButton.setBackground(new Color(192,27,54));
-        decryptButton.setForeground(Color.BLACK);
-        decryptButton.setBounds(1100,400,150,30);
-        decryptButton.setOpaque(true);
-
-        add(algorithmName);
-        add(encryptButton);
-        add(decryptButton);
-        add(plaintext);
-        add(plaintextField);
-        add(encryptKey);
-        add(encryptKeyField);
-        add(ciphertext);
-        add(ciphertextField);
-        add(decryptKey);
-        add(decryptKeyField);
-        add(divider);
-
-        repaint();
-        revalidate();
-
-        encryptButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String plaintext = plaintextField.getText();
-                String key = encryptKeyField.getText();
-                String ciphertext="";
-
-                switch (algorithm) {
-                    case "Caesar's Cipher":
-                        Caesar tester = new Caesar();
-                        ciphertext = tester.encrypt(plaintext, key);
-                        break;
-                    case "A5/1 Cipher":
-                        //call a51
-                        A51 a51 = new A51();
-                        ciphertext = a51.encrypt(plaintext, key);
-                        break;
-                }
-
-                JLabel output = new JLabel("Output");
-                output.setFont(new Font("Serif2", Font.BOLD, 20));
-                output.setBounds(200, 500, 150, 30);
-                output.setBackground(Color.WHITE);
-                output.setForeground(Color.BLACK);
-                output.setOpaque(true);
-
-                JTextArea encryptionOutput = new JTextArea(ciphertext);
-                encryptionOutput.setBackground(new Color(255,255,255,40));
-                encryptionOutput.setBounds(200, 550,500,150);
-                encryptionOutput.setOpaque(true);
-
-                add(output);
-                add(encryptionOutput);
-
-                revalidate();
-                repaint();
-            }
-        });
-
-        decryptButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String ciphertext = ciphertextField.getText();
-                String key = decryptKeyField.getText();
-                String plaintext = "";
-
-                switch (algorithm) {
-                    case "Caesar's Cipher":
-                        Caesar tester = new Caesar();
-                        plaintext = tester.decrypt(ciphertext, key);
-                        break;
-                    case "A5/1 Cipher":
-                        A51 a51 = new A51();
-                        plaintext = a51.decrypt(ciphertext, key);
-                        break;
-                }
-
-                JLabel output = new JLabel("Output");
-                output.setFont(new Font("Serif2", Font.BOLD, 20));
-                output.setBounds(1000, 500, 150, 30);
-                output.setBackground(Color.WHITE);
-                output.setForeground(Color.BLACK);
-                output.setOpaque(true);
-
-                JTextArea decryptionOutput = new JTextArea(plaintext);
-                decryptionOutput.setBackground(new Color(255,255,255,40));
-                decryptionOutput.setBounds(1000, 550,500,150);
-                decryptionOutput.setOpaque(true);
-
-                add(output);
-                add(decryptionOutput);
-
-                repaint();
-                revalidate();
-            }
-        });
+    public void cryptographyWindow(String algorithm) {
+        algorithmComponents.setAlgorithmName(algorithm);
+        algorithmComponents.show();
     }
     
     public void init() {
@@ -394,6 +228,8 @@ public class NewGUI extends JFrame{
         baseComponents = new ComponentScreen(this);
         introComponents = new ComponentScreen(this);
         symmetricAlgorithmComponents = new ComponentScreen(this);
+        algorithmComponents = new AlgorithmScreen(this);
+
     }
 
 

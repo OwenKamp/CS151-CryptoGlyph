@@ -30,4 +30,9 @@ public class ComponentScreen{
 		f.revalidate();
 		f.repaint();
 	}
+
+	public void update(){
+		f.revalidate();
+		f.repaint();
+	}
 }
