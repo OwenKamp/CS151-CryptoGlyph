@@ -2,6 +2,7 @@ import static java.lang.String.valueOf;
 
 public class Caesar extends Cryptography {
     public String encrypt(String plaintext, String key) {
+        ValidateKey.validateEncrypt("Caesar's Cipher", key);
         int Key = Integer.parseInt(key);
         plaintext = plaintext.toUpperCase();
         char[] plaintextArray = plaintext.toCharArray();
@@ -17,6 +18,7 @@ public class Caesar extends Cryptography {
     }
 
     public String decrypt(String ciphertext, String key) {
+        ValidateKey.validateDecrypt("Caesar's Cipher", key);
         int Key = Integer.parseInt(key);
         ciphertext = ciphertext.toUpperCase();
         char[] ciphertextArray = ciphertext.toCharArray();
