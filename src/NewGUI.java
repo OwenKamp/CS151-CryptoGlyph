@@ -163,8 +163,9 @@ public class NewGUI extends JFrame{
 //                asymmetricScreen(intro,introInformation,asymmetricSelected,homeButtonSelected)
 //            }
 //        });
-
-        setSize(800, 600);
+        
+        // edit size further depending on who is presenting, preferably it would go fullscreen without messing up the background
+        setSize(1300, 830);
         setVisible(true);
         setResizable(false);
         repaint();
