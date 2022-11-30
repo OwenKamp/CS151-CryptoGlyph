@@ -51,7 +51,7 @@ public class NewGUI extends JFrame{
         //setComponentZOrder(homeButton, 2);
 
         JLabel homePNG = new JLabel();
-        homePNG.setIcon(new ImageIcon("src/home.png"));
+        homePNG.setIcon(new ImageIcon("home.png"));
         homePNG.setBounds(25,210,30,30);
         homePNG.setForeground(Color.BLACK);
         homePNG.setBackground(Color.RED);
@@ -64,18 +64,18 @@ public class NewGUI extends JFrame{
         symmetric.setBounds(15, 250, 135, 50);
 
         JLabel keyPNG = new JLabel();
-        keyPNG.setIcon(new ImageIcon("src/key.png"));
+        keyPNG.setIcon(new ImageIcon("key.png"));
         keyPNG.setBounds(25,260,30,30);
         keyPNG.setBackground(Color.WHITE);
         keyPNG.setOpaque(true);
 
         JLabel key1PNG = new JLabel();
-        key1PNG.setIcon(new ImageIcon("src/key.png"));
+        key1PNG.setIcon(new ImageIcon("twoKey.png"));
         key1PNG.setBounds(25,310,30,30);
         key1PNG.setBackground(Color.WHITE);
         key1PNG.setOpaque(true);
 
-        JButton asymmetric = new JButton("    Asymmetric");
+        JButton asymmetric = new JButton("     Asymmetric");
         asymmetric.setBackground(Color.BLACK);
         asymmetric.setForeground(Color.RED);
         asymmetric.setBounds(15, 300, 135, 50);
@@ -88,7 +88,7 @@ public class NewGUI extends JFrame{
         JLabel logo = new JLabel();
         logo.setBackground(new Color(192,27,54));
         logo.setBounds(180,15,105,105);
-        logo.setIcon(new ImageIcon("src/logo.png"));
+        logo.setIcon(new ImageIcon("logo.png"));
         logo.setOpaque(true);
 
         JLabel projectName = new JLabel("    CryptoGlyph");
@@ -178,8 +178,8 @@ public class NewGUI extends JFrame{
     	algorithmComponents.hide();
     	n.navigate("ASYMMETRIC");
     	if(elementsCreated[1] == false) {
-    		asymmetricOptions.firstAlgorithm("Knapsack", "src/caesarsLogo.png");
-    		asymmetricOptions.secondAlgorithm("RSA", "src/a51.png");
+    		asymmetricOptions.firstAlgorithm("Knapsack", "Knapsack.png");
+    		asymmetricOptions.secondAlgorithm("RSA", "rsa.png");
     		elementsCreated[1] = true;
     	}
     	asymmetricOptions.show();
@@ -192,7 +192,7 @@ public class NewGUI extends JFrame{
         n.navigate("SYMMETRIC");
         if(elementsCreated[0] == false) {
 //            JLabel caesarsPNG = new JLabel();
-//            caesarsPNG.setIcon(new ImageIcon("src/caesarsLogo.png"));
+//            caesarsPNG.setIcon(new ImageIcon("caesarsLogo.png"));
 //            caesarsPNG.setBounds(225, 200, 100, 100);
 //            caesarsPNG.setBackground(Color.WHITE);
 //            caesarsPNG.setOpaque(true);
@@ -201,10 +201,10 @@ public class NewGUI extends JFrame{
 //            caesarsButton.setForeground(Color.BLACK);
 //            caesarsButton.setBackground(new Color(192, 27, 54));
 //            caesarsButton.setBounds(200, 300, 150, 30);
-        	symmetricOptions.firstAlgorithm("Caesar's Cipher", "src/caesarsLogo.png");
+        	symmetricOptions.firstAlgorithm("Caesar's Cipher", "caesarsLogo.png");
 
 //            JLabel a51PNG = new JLabel();
-//            a51PNG.setIcon(new ImageIcon("src/a51.png"));
+//            a51PNG.setIcon(new ImageIcon("a51.png"));
 //            a51PNG.setBounds(500, 200, 250, 100);
 //            a51PNG.setOpaque(true);
 //
@@ -213,7 +213,7 @@ public class NewGUI extends JFrame{
 //            a51Button.setBackground(new Color(192, 27, 54));
 //            a51Button.setBounds(550, 300, 150, 30);
 //            a51Button.setOpaque(true);
-        	symmetricOptions.secondAlgorithm("A5/1 Cipher",  "src/a51.png");
+        	symmetricOptions.secondAlgorithm("A5/1 Cipher",  "a51.png");
 
 //            symmetricAlgorithmComponents.add(caesarsPNG);
 //            symmetricAlgorithmComponents.add(caesarsButton);
@@ -248,12 +248,12 @@ public class NewGUI extends JFrame{
         algorithmComponents.setAlgorithmName(algorithm);
         algorithmComponents.show();
     }
-    
+
     public void init() {
     	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("CryptoGlyph");
 
-        setContentPane(new JLabel(new ImageIcon("src/background.png")));
+        setContentPane(new JLabel(new ImageIcon("background.png")));
         setLayout(null);
         baseComponents = new ComponentScreen(this);
         introComponents = new ComponentScreen(this);
