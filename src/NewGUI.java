@@ -166,6 +166,7 @@ public class NewGUI extends JFrame{
 
         setSize(800, 600);
         setVisible(true);
+        setResizable(false);
         repaint();
         revalidate();
     }
