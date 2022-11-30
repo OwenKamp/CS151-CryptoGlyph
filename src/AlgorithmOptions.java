@@ -30,8 +30,7 @@ public class AlgorithmOptions extends ComponentScreen {
         		getFrame().cryptographyWindow(name);
         	}
         });
-        getFrame().revalidate();
-        getFrame().repaint();
+        update();
     }
     public void secondAlgorithm(String name,String path) {
         JLabel PNG = new JLabel();
@@ -56,8 +55,7 @@ public class AlgorithmOptions extends ComponentScreen {
         		getFrame().cryptographyWindow(name);
         	}
         });
-        getFrame().revalidate();
-        getFrame().repaint();
+        update();
     }
     public void thirdAlgorithm() {
     	// TODO?
