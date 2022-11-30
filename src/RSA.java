@@ -1,66 +1,50 @@
+import java.util.stream.Stream;
+
 public class RSA extends Cryptography {
-	// I set default values, just remove these if you don't want them
+	// currently, integers will overflow if the size is > 4. If we want to encode larger values, would probably just break up the string into sections of 4
+	// would still get overflow eventually from putting the ints back together
+	private int p;
+	private int q;
+	private int n;
+	private int e;
+	private int g;
+	private int d;
 	
-	private static int p = 61;
-	private static int q = 53;
-	private static int e = 17;
-	private static int n = p*q;
-	private static int g = LCM(p-1,q-1);
-	private static int d = calcD();
-	
-	// only necessary if you want to have p, q, and e be inputs
-	public static void update(int newP, int newQ, int newE) {
-		p = newP;
-		q = newQ;
-		e = newE;
-		n = p*q;
-		g = LCM(p-1,q-1);
-		d = calcD();
+	public void setKeys(String key) {
+		ValidateKey.validateEncrypt("RSA", key);
+		// only one key input format :)
+		String[] vals = key.split(",");
+		this.p = Integer.parseInt(vals[0]);
+		this.q = Integer.parseInt(vals[1]);
+		this.e = Integer.parseInt(vals[2]);
+		this.n = p*q;
+		this.g = LCM(p-1,q-1);
+		this.d = calcD();
 	}
-	
-	// if you need these, they give a 64 bit key with the first 32 being n and e for the public key, and n and d for the private key
-	public static String getPublicKey() {
+	public String getPublicKey() {
 		StringBuilder s = new StringBuilder();
-		String str = Integer.toBinaryString(n);
-		if(str.length()<32) {
-			for(int i = str.length(); i < 32; i++) {
-				s.append("0");
-			}
-		}
-		s.append(str);
-		
-		str = Integer.toBinaryString(e);
-		if(str.length()<32) {
-			for(int i = str.length(); i < 32; i++) {
-				s.append("0");
-			}
-		}
-		s.append(str);
-		
+		s.append("n=");
+		s.append(n);
+		s.append(",e=");
+		s.append(e);
 		return s.toString();
 	}
-	public static String getPrivateKey() {
+	public String getPrivateKey() {
 		StringBuilder s = new StringBuilder();
-		String str = Integer.toBinaryString(n);
-		if(str.length()<32) {
-			for(int i = str.length(); i < 32; i++) {
-				s.append("0");
-			}
-		}
-		s.append(str);
-		
-		str = Integer.toBinaryString(d);
-		if(str.length()<32) {
-			for(int i = str.length(); i < 32; i++) {
-				s.append("0");
-			}
-		}
-		s.append(str);
-		
+		s.append("n=");
+		s.append(n);
+		s.append(",d=");
+		s.append(d);
 		return s.toString();
 	}
 	
-	public static int encrypt(int msg) {
+	public String encrypt(String plainText, String publicKey) {
+		int msg = stringToInt(plainText);
+		String cur = publicKey.substring(0,32);
+		int n = stringToInt(cur);
+		cur = publicKey.substring(32);
+		int e = stringToInt(cur);
+		
 		int ret = 1;
 		for(int i = 0; i < e; i++) {
 			ret*=msg;
@@ -68,9 +52,16 @@ public class RSA extends Cryptography {
 				ret-=n;
 			}
 		}
-		return ret;
+		
+		return intToString(ret);
 	}
-	public static int decrypt(int msg) {
+	public String decrypt(String cipherText, String privateKey) {
+		int msg = stringToInt(cipherText);
+		String cur = privateKey.substring(0,32);
+		int n = stringToInt(cur);
+		cur = privateKey.substring(32);
+		int d = stringToInt(cur);
+		
 		int ret = 1;
 		for(int i = 0; i < d; i++) {
 			ret*=msg;
@@ -78,7 +69,8 @@ public class RSA extends Cryptography {
 				ret-=n;
 			}
 		}
-		return ret;
+		
+		return intToString(ret);
 	}
 	private static int LCM(int p, int q) {
 		return Math.abs(p*q)/GCD(p,q);
@@ -93,7 +85,7 @@ public class RSA extends Cryptography {
 		}
 		return ret;
 	}
-	private static int calcD() {
+	private int calcD() {
 		int ret = 1;
 		int val = e;
 		while(val%g!=1) {
@@ -107,12 +99,26 @@ public class RSA extends Cryptography {
 		}
 		return ret;
 	}
+	
+	// by cian
+	private static String intToString(int i) {
+        StringBuilder sb = new StringBuilder(Integer.toBinaryString(i));
+
+        while (sb.toString().length() % 8 != 0) {
+            sb.insert(0, "0");
+        }
+        return Converter.binaryStringToString(sb.toString());
+    }
+	private static Integer stringToInt(String str) {
+        String strBinary = Converter.stringToBinaryString(str);
+        return Integer.parseInt(strBinary, 2);
+    }
 	public static void main(String[] args) {
-		System.out.println(n);
-		int msg = 65;
-		int c = encrypt(msg);
-		System.out.println(c);
-		System.out.println(decrypt(c));
+		String str = "abcd";
+		int num = stringToInt(str);
+		System.out.println(str);
+		System.out.println(num);
+		System.out.println(intToString(num));
 	}
 	
 	/*	Proof for calcD time complexity

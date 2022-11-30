@@ -10,6 +10,9 @@ public class ComponentScreen{
 		this.f = f;
 	}
 	
+	protected NewGUI getFrame() {
+		return f;
+	}
 //	Add components the order they will be placed on top of each other. First one is front layer, second is behind.
 	public void add(JComponent c) {
 		componentList.add(c);

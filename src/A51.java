@@ -6,6 +6,7 @@ public class A51 extends Cryptography {
     private int[] registerZ = new int[23];
 
     public String encrypt(String plaintext, String key) {
+        ValidateKey.validateEncrypt("A51", key);
         String binaryPlaintext = Converter.stringToBinaryString(plaintext);
         char[] binaryPlaintextArray = binaryPlaintext.toCharArray();
         StringBuilder ciphertextBuilder = new StringBuilder();
@@ -47,6 +48,7 @@ public class A51 extends Cryptography {
     }
 
     public String decrypt(String ciphertext, String key) {
+        ValidateKey.validateDecrypt("A51", key);
         char[] ciphertextArray = ciphertext.toCharArray();
         StringBuilder plaintextBuilder = new StringBuilder();
 
