@@ -183,6 +183,14 @@ public class AlgorithmScreen extends ComponentScreen
                         A51 a51 = new A51();
                         plaintext = a51.decrypt(ciphertext, key);
                         break;
+                    case "Knapsack":
+                        Knapsack k = new Knapsack();
+                        plaintext = k.decrypt(ciphertext,key);
+                        break;
+                    case "RSA":
+                        RSA rsa = new RSA();
+                        plaintext = rsa.decrypt(ciphertext,key);
+                        break;
                 }
                 decryptionOutput.setText(plaintext);
                 update();
