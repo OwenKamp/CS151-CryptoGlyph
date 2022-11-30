@@ -12,8 +12,8 @@ public class NewGUI extends JFrame{
     ComponentScreen introComponents;
 
     // can delete these
-    ComponentScreen symmetricAlgorithmComponents;
-    ComponentScreen asymmetricAlgorithmComponents;
+//    ComponentScreen symmetricAlgorithmComponents;
+//    ComponentScreen asymmetricAlgorithmComponents;
     
     AlgorithmScreen algorithmComponents;
     // added
@@ -257,8 +257,8 @@ public class NewGUI extends JFrame{
         setLayout(null);
         baseComponents = new ComponentScreen(this);
         introComponents = new ComponentScreen(this);
-        symmetricAlgorithmComponents = new ComponentScreen(this);
-        asymmetricAlgorithmComponents = new ComponentScreen(this);
+//        symmetricAlgorithmComponents = new ComponentScreen(this);
+//        asymmetricAlgorithmComponents = new ComponentScreen(this);
         algorithmComponents = new AlgorithmScreen(this);
         symmetricOptions = new AlgorithmOptions(this);
         asymmetricOptions = new AlgorithmOptions(this);
