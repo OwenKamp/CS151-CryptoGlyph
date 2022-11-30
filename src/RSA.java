@@ -12,6 +12,7 @@ public class RSA extends Cryptography {
 	
 	public void setKeys(String key) {
 		ValidateKey.validateEncrypt("RSA", key);
+		// only one key input format :)
 		String[] vals = key.split(",");
 		this.p = Integer.parseInt(vals[0]);
 		this.q = Integer.parseInt(vals[1]);
