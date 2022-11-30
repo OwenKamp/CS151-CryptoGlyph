@@ -1,15 +1,22 @@
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CaesarTesting {
+    private static Caesar cs;
+
+    @BeforeAll
+    public static void initialize() {
+        cs = new Caesar();
+    }
 
     @Test
     public void testEncrypt() {
-        assertEquals("WHVWLQJ", Caesar.encrypt("Testing", "3"));
+        assertEquals("WHVWLQJ", cs.encrypt("Testing", "3"));
     }
 
     @Test
     public void testDecrypt() {
-        assertEquals("TESTING", Caesar.decrypt("WHVWLQJ", "3"));
+        assertEquals("TESTING", cs.decrypt("WHVWLQJ", "3"));
     }
 }
