@@ -157,14 +157,18 @@ public class Converter {
     }
 
     public static void main(String[] args) {
-        byte theByte = 102;
-        System.out.println(theByte);
-//        String str = byteToBits(theByte);
-//        System.out.println(str);
-        String strRevised = binaryToHexImproved(theByte);
-        System.out.println(strRevised);
-        byte theByteAfterConversion = hexToBinary(strRevised);
-        System.out.println(theByteAfterConversion);
+        byte[] bytes = decimalToBinary(2);
+        for (int i=0;i<bytes.length;i++) {
+            System.out.println(bytes[i]);
+        }
+//        byte theByte = 102;
+//        System.out.println(theByte);
+////        String str = byteToBits(theByte);
+////        System.out.println(str);
+//        String strRevised = binaryToHexImproved(theByte);
+//        System.out.println(strRevised);
+//        byte theByteAfterConversion = hexToBinary(strRevised);
+//        System.out.println(theByteAfterConversion);
 //        byte[] tester = stringToBinary("Testing");
 //        for (int i=0;i< tester.length;i++) {
 //            System.out.print(tester[i]);

@@ -1,9 +1,11 @@
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class AES {
     static HashMap<String, String> byteSubHashmap = new HashMap<>();
-    //static HashMap<String, String> reverseByteSubHashmap = new HashMap<>();
+    static HashMap<String, String> etable = new HashMap<>();
 
     public static String encrypt(String plaintext, String key) {
 
@@ -336,27 +338,359 @@ public class AES {
 //        reverseByteSubHashmap.put("63","00");
 //    }
 
-    public static void mixColumn() {
-
+    public static byte multiply(byte a, byte b) {
+        byte returnValue = 0;
+        byte temp = 0;
+        while (a != 0) {
+            if ((a & 1) != 0)
+                returnValue = (byte) (returnValue ^ b);
+            temp = (byte) (b & 0x80);
+            b = (byte) (b << 1);
+            if (temp != 0)
+                b = (byte) (b ^ 0x1b);
+            a = (byte) ((a & 0xff) >> 1);
+        }
+        return returnValue;
     }
 
-    public static byte gMul(byte x, byte y) {
-        byte p=0;
+    public static byte[][] mixColumns(byte[][] input, boolean decrypt) {
+        byte[][] matrix = { { 0x03, 0x0b }, { 0x01, 0x0d }, { 0x01, 0x09 }, { 0x02, 0x0e } };
+        int[] temp = new int[4];
 
-        for (int i=0;i<8;i++) {
-            if ((y & 1) != 0) {
-                p ^= x;
+        int arrayIndex = decrypt ? 1 : 0;
+
+        byte a = matrix[0][arrayIndex];
+        byte b = matrix[1][arrayIndex];
+        byte c = matrix[2][arrayIndex];
+        byte d = matrix[3][arrayIndex];
+
+        for (int i = 0; i < 4; i++) {
+            temp[0] = multiply(d, input[0][i]) ^ multiply(a, input[1][i])
+                    ^ multiply(b, input[2][i]) ^ multiply(c, input[3][i]);
+            temp[1] = multiply(c, input[0][i]) ^ multiply(d, input[1][i])
+                    ^ multiply(a, input[2][i]) ^ multiply(b, input[3][i]);
+            temp[2] = multiply(b, input[0][i]) ^ multiply(c, input[1][i])
+                    ^ multiply(d, input[2][i]) ^ multiply(a, input[3][i]);
+            temp[3] = multiply(a, input[0][i]) ^ multiply(b, input[1][i])
+                    ^ multiply(c, input[2][i]) ^ multiply(d, input[3][i]);
+            for (int j = 0; j < 4; j++)
+                input[j][i] = (byte) (temp[j]);
+        }
+        return input;
+    }
+
+    public static byte[][] mixColumn(byte[][] byteArray) {
+        initializeGaloisMultiplicationTable();
+
+        for (int i=0;i< byteArray.length;i++) {
+            // getting subbed bytes in hex
+            String byteInHex = Converter.binaryToHexImproved(byteArray[0][i]);
+            String subbedHexByte = getKeyByValue(etable, byteInHex);
+            int byteInDecimal = Integer.parseInt(subbedHexByte, 16);
+
+            int sum = byteInDecimal + 2;
+
+            if (sum > Integer.parseInt("FF", 16)) {
+                sum -= Integer.parseInt("FF", 16);
             }
 
-            Boolean hiBitSet = (x & 0x80) != 0;
-            x <<= 1;
-            if (hiBitSet) {
-                x ^= 0x1B; /* x^8 + x^4 + x^3 + x + 1 */
+            byte[] sumInBinary = Converter.decimalToBinary(sum);
+            StringBuilder sb = new StringBuilder();
+            for (int j=0;i<sumInBinary.length;i++) {
+                sb.append(Converter.binaryToHexImproved(sumInBinary[j]));
             }
-            y >>= 1;
+
+            byteArray[0][i] = (byte) ( (byteArray[0][i] * 2) ^ (byteArray[1][i] * 3) ^ (byteArray[2][i]) ^ (byteArray[3][i]));
+            byteArray[1][i] = (byte) (byteArray[0][i] ^ (byteArray[1][i] * 2) ^ (byteArray[2][i] * 3) ^ byteArray[3][i]);
+            byteArray[2][i] = (byte) (byteArray[0][i] ^ byteArray[1][i] ^ (byteArray[2][i] * 2) ^ (byteArray[3][i] * 3));
+            byteArray[3][i] = (byte) ((byteArray[0][i] * 3) ^ byteArray[1][i] ^ byteArray[2][i] ^ (byteArray[3][i] * 2));
         }
 
-        return p;
+        return byteArray;
+    }
+
+    public static <T, E> T getKeyByValue(HashMap<T, E> hashMap, E value) {
+        for (Map.Entry<T, E> entry : hashMap.entrySet()) {
+            if (Objects.equals(value, entry.getValue())) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    public static void initializeGaloisMultiplicationTable() {
+        //HashMap<String, String> etable = new HashMap<>();
+        etable.put("00","01");
+        etable.put("01","03");
+        etable.put("02","05");
+        etable.put("03","0F");
+        etable.put("04","11");
+        etable.put("05","33");
+        etable.put("06","55");
+        etable.put("07","FF");
+        etable.put("08","1A");
+        etable.put("09","2E");
+        etable.put("0A","72");
+        etable.put("0B","96");
+        etable.put("0C","A1");
+        etable.put("0D","F8");
+        etable.put("0E","13");
+        etable.put("0F","35");
+
+        etable.put("10","5F");
+        etable.put("11","E1");
+        etable.put("12","38");
+        etable.put("13","48");
+        etable.put("14","D8");
+        etable.put("15","73");
+        etable.put("16","95");
+        etable.put("17","A4");
+        etable.put("18","F7");
+        etable.put("19","02");
+        etable.put("1A","06");
+        etable.put("1B","0A");
+        etable.put("1C","1E");
+        etable.put("1D","22");
+        etable.put("1E","66");
+        etable.put("1F","AA");
+
+        etable.put("20","E5");
+        etable.put("21","34");
+        etable.put("22","5C");
+        etable.put("23","E4");
+        etable.put("24","37");
+        etable.put("25","59");
+        etable.put("26","EB");
+        etable.put("27","26");
+        etable.put("28","6A");
+        etable.put("29","BE");
+        etable.put("2A","D9");
+        etable.put("2B","70");
+        etable.put("2C","90");
+        etable.put("2D","AB");
+        etable.put("2E","E6");
+        etable.put("2F","31");
+
+        etable.put("30","53");
+        etable.put("31","F5");
+        etable.put("32","04");
+        etable.put("33","0C");
+        etable.put("34","14");
+        etable.put("35","3C");
+        etable.put("36","44");
+        etable.put("37","CC");
+        etable.put("38","4F");
+        etable.put("39","D1");
+        etable.put("3A","68");
+        etable.put("3B","B8");
+        etable.put("3C","D3");
+        etable.put("3D","6E");
+        etable.put("3E","B2");
+        etable.put("3F","CD");
+
+        etable.put("40","4C");
+        etable.put("41","D4");
+        etable.put("42","67");
+        etable.put("43","A9");
+        etable.put("44","E0");
+        etable.put("45","3B");
+        etable.put("46","4D");
+        etable.put("47","D7");
+        etable.put("48","62");
+        etable.put("49","A6");
+        etable.put("4A","F1");
+        etable.put("4B","08");
+        etable.put("4C","18");
+        etable.put("4D","28");
+        etable.put("4E","78");
+        etable.put("4F","88");
+
+        etable.put("50","83");
+        etable.put("51","9E");
+        etable.put("52","B9");
+        etable.put("53","D0");
+        etable.put("54","6B");
+        etable.put("55","BD");
+        etable.put("56","DC");
+        etable.put("57","7F");
+        etable.put("58","81");
+        etable.put("59","98");
+        etable.put("5A","B3");
+        etable.put("5B","CE");
+        etable.put("5C","49");
+        etable.put("5D","DB");
+        etable.put("5E","76");
+        etable.put("5F","9A");
+
+        etable.put("60","B5");
+        etable.put("61","C4");
+        etable.put("62","57");
+        etable.put("63","F9");
+        etable.put("64","10");
+        etable.put("65","30");
+        etable.put("66","50");
+        etable.put("67","F0");
+        etable.put("68","0B");
+        etable.put("69","1D");
+        etable.put("6A","27");
+        etable.put("6B","69");
+        etable.put("6C","BB");
+        etable.put("6D","D6");
+        etable.put("6E","61");
+        etable.put("6F","A3");
+
+        etable.put("70","FE");
+        etable.put("71","19");
+        etable.put("72","2B");
+        etable.put("73","7D");
+        etable.put("74","87");
+        etable.put("75","92");
+        etable.put("76","AD");
+        etable.put("77","EC");
+        etable.put("78","2F");
+        etable.put("79","71");
+        etable.put("7A","3");
+        etable.put("7B","20");
+        etable.put("7C","E9");
+        etable.put("7D","AE");
+        etable.put("7E","60");
+        etable.put("7F","A0");
+
+        etable.put("80","FB");
+        etable.put("81","16");
+        etable.put("82","3A");
+        etable.put("83","4E");
+        etable.put("84","D2");
+        etable.put("85","6D");
+        etable.put("86","B7");
+        etable.put("87","C2");
+        etable.put("88","5D");
+        etable.put("89","E7");
+        etable.put("8A","32");
+        etable.put("8B","56");
+        etable.put("8C","FA");
+        etable.put("8D","15");
+        etable.put("8E","3F");
+        etable.put("8F","41");
+
+        etable.put("90","C3");
+        etable.put("91","5E");
+        etable.put("92","E2");
+        etable.put("93","3D");
+        etable.put("94","47");
+        etable.put("95","C9");
+        etable.put("96","40");
+        etable.put("97","C0");
+        etable.put("98","5B");
+        etable.put("99","ED");
+        etable.put("9A","2C");
+        etable.put("9B","74");
+        etable.put("9C","9C");
+        etable.put("9D","BF");
+        etable.put("9E","DA");
+        etable.put("9F","75");
+
+        etable.put("A0","9F");
+        etable.put("A1","BA");
+        etable.put("A2","D5");
+        etable.put("A3","64");
+        etable.put("A4","AC");
+        etable.put("A5","EF");
+        etable.put("A6","2A");
+        etable.put("A7","7E");
+        etable.put("A8","82");
+        etable.put("A9","9D");
+        etable.put("AA","BC");
+        etable.put("AB","DF");
+        etable.put("AC","7A");
+        etable.put("AD","8E");
+        etable.put("AE","89");
+        etable.put("AF","80");
+
+        etable.put("B0","9B");
+        etable.put("B1","B6");
+        etable.put("B2","C1");
+        etable.put("B3","58");
+        etable.put("B4","E8");
+        etable.put("B5","23");
+        etable.put("B6","65");
+        etable.put("B7","AF");
+        etable.put("B8","EA");
+        etable.put("B9","25");
+        etable.put("BA","6F");
+        etable.put("BB","B1");
+        etable.put("BC","C8");
+        etable.put("BD","43");
+        etable.put("BE","C5");
+        etable.put("BF","54");
+
+        etable.put("C0","FC");
+        etable.put("C1","1F");
+        etable.put("C2","21");
+        etable.put("C3","63");
+        etable.put("C4","A5");
+        etable.put("C5","F4");
+        etable.put("C6","07");
+        etable.put("C7","09");
+        etable.put("C8","1B");
+        etable.put("C9","2D");
+        etable.put("CA","77");
+        etable.put("CB","99");
+        etable.put("CC","B0");
+        etable.put("CD","CB");
+        etable.put("CE","46");
+        etable.put("CF","CA");
+
+        etable.put("D0","45");
+        etable.put("D1","CF");
+        etable.put("D2","4A");
+        etable.put("D3","DE");
+        etable.put("D4","79");
+        etable.put("D5","8B");
+        etable.put("D6","86");
+        etable.put("D7","91");
+        etable.put("D8","A8");
+        etable.put("D9","E3");
+        etable.put("DA","3E");
+        etable.put("DB","42");
+        etable.put("DC","C6");
+        etable.put("DD","51");
+        etable.put("DE","F3");
+        etable.put("DF","0E");
+
+        etable.put("E0","12");
+        etable.put("E1","36");
+        etable.put("E2","FA");
+        etable.put("E3","EE");
+        etable.put("E4","29");
+        etable.put("E5","7B");
+        etable.put("E6","8D");
+        etable.put("E7","8C");
+        etable.put("E8","8F");
+        etable.put("E9","8A");
+        etable.put("EA","85");
+        etable.put("EB","94");
+        etable.put("EC","A7");
+        etable.put("ED","F2");
+        etable.put("EE","0D");
+        etable.put("EF","17");
+
+        etable.put("F0","39");
+        etable.put("F1","4B");
+        etable.put("F2","DD");
+        etable.put("F3","7C");
+        etable.put("F4","84");
+        etable.put("F5","97");
+        etable.put("F6","A2");
+        etable.put("F7","FD");
+        etable.put("F8","1C");
+        etable.put("F9","24");
+        etable.put("FA","6C");
+        etable.put("FB","B4");
+        etable.put("FC","C7");
+        etable.put("FD","52");
+        etable.put("FE","F6");
+        etable.put("FF","01");
     }
 
     public static byte[][] addRoundKey(byte[][] byteArray, byte[][] key) {
@@ -370,12 +704,33 @@ public class AES {
     }
 
     public static void main(String[] args) {
-        //addRoundKey testing
-        byte byte1 = 82;
-        byte byte2 = 103;
+        //mix columns testing
+        byte[][] columns = {{19,19,83,69},{1,1,1,1},{45,38,49,76},{1,10,34,92}};
+        byte[][] columnsRevised = mixColumns(columns, false);
 
-        byte byte3 = (byte) (byte1 ^ byte2);
-        System.out.println(byte3);
+        for (int i=0;i<columnsRevised.length;i++) {
+            for (int j=0;j< columnsRevised[i].length;j++) {
+                System.out.print(columnsRevised[i][j] + " ");
+            }
+            System.out.println("");
+        }
+
+        byte[][] originalColumns = mixColumns(columnsRevised, true);
+
+        System.out.println("\n\n");
+        for (int i=0;i< originalColumns.length;i++) {
+            for (int j=0;j< originalColumns[i].length;j++) {
+                System.out.print(originalColumns[i][j] + " ");
+            }
+            System.out.println("");
+        }
+
+        //addRoundKey testing
+//        byte byte1 = 82;
+//        byte byte2 = 103;
+//
+//        byte byte3 = (byte) (byte1 ^ byte2);
+//        System.out.println(byte3);
 
 
         //bytesub testing
