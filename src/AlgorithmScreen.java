@@ -152,6 +152,14 @@ public class AlgorithmScreen extends ComponentScreen
                         A51 a51 = new A51();
                         ciphertext = a51.encrypt(plaintext, key);
                         break;
+                    case "Knapsack":
+                    	Knapsack k = new Knapsack();
+                    	ciphertext = k.encrypt(plaintext,key);
+                    	break;
+                    case "RSA":
+                    	RSA rsa = new RSA();
+                    	ciphertext = rsa.encrypt(plaintext,key);
+                    	break;
                 }
                 encryptionOutput.setText(ciphertext);
                 update();
