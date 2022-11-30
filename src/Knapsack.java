@@ -81,6 +81,7 @@ public class Knapsack extends Cryptography {
 		if (len == 0) {
 			return null;
 		}
+		ValidateKey.validateEncrypt("Knapsack", key);
 		long[] keyArray = csvToLongArray(key);
 
 		long[] sums = new long[(int)len];
@@ -110,6 +111,7 @@ public class Knapsack extends Cryptography {
 		StringBuilder sb = new StringBuilder();
 //		change the input to integer arrays.
 		long[] sumArray = csvToLongArray(cipherText);
+		ValidateKey.validateDecrypt("Knapsack", key);
 		long[] keyArray = csvToLongArray(key);
 		for (int i = 0; i < sumArray.length; i++) {
 			sb.append(solveKnapsack(sumArray[i], keyArray));
