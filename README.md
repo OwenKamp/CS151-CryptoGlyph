@@ -85,6 +85,10 @@ Users can first select a category of algorithms; symmetric or asymmetric. They a
 
 
 ## Steps to run code:
+1. Be running openjdk version "14" 2020-03-17 and OpenJDK Runtime Environment (build 14+36-1461)
+2. Change to the **src** directory.
+3. Run **javac NewGUI.java**
+4. Run **java NewGUI**
 
 
 
