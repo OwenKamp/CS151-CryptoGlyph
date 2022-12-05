@@ -273,6 +273,7 @@ public class NewGUI extends JFrame{
     }
 
     public static void main(String[] args) {
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         NewGUI graphicalInterface = new NewGUI();
 //    	System.out.println("Working Directory = " + System.getProperty("user.dir"));
     }

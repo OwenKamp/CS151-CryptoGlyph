@@ -144,6 +144,7 @@ public class AlgorithmScreen extends ComponentScreen
 
                 switch (algorithm) {
                     case "Caesar's Cipher":
+                        System.out.println("GOT HERE");
                         Caesar tester = new Caesar();
                         ciphertext = tester.encrypt(plaintext, key);
                         break;

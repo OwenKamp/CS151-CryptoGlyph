@@ -30,13 +30,13 @@ public class RSA extends Cryptography {
 			return validity;
 		}
 		String[] key = publicKey.split(",");
-		int msg = stringToInt(plainText);
+		int msg = Converter.stringToInt(plainText);
 		int n = Integer.parseInt(key[0]);
 		int e = Integer.parseInt(key[1]);
 		
 		int ret = encryptNum(msg,n,e);
 		
-		return intToString(ret);
+		return Converter.intToString(ret);
 	}
 	public int encryptNum(int m, int n, int e) {
 		int ret = 1;
@@ -51,18 +51,18 @@ public class RSA extends Cryptography {
 	public String decrypt(String cipherText, String privateKey) {
 		String validity = ValidateKey.validateDecrypt("RSA", privateKey);
 		if(!privateKey.equals(validity)) {
-			print("inside if statement");
+			System.out.println("inside if statement");
 			return validity;
 		}
 		
 		String[] key = privateKey.split(",");
-		int cipher = stringToInt(cipherText);
+		int cipher = Converter.stringToInt(cipherText);
 		int n = Integer.parseInt(key[0]);
 		int d = Integer.parseInt(key[1]);
 		
 		int ret = decryptNum(cipher,n,d);
 		
-		return intToString(ret);
+		return Converter.intToString(ret);
 	}
 	public int decryptNum(int c, int n, int d) {
 		int ret = 1;
@@ -95,41 +95,22 @@ public class RSA extends Cryptography {
 		}
 		return d;
 	}
-	
-	// by cian
-	private static String intToString(int i) {
-        StringBuilder sb = new StringBuilder(Integer.toBinaryString(i));
 
-        while (sb.toString().length() % 8 != 0) {
-            sb.insert(0, "0");
-        }
-        return Converter.binaryStringToString(sb.toString());
-    }
-	private static Integer stringToInt(String str) {
-        String strBinary = Converter.stringToBinaryString(str);
-        return Integer.parseInt(strBinary, 2);
-    }
-	
+
 	public static void main(String[] args) {
 		RSA encrypter = new RSA();
 		int p = 61;
 		int q = 53;
 		int e = 17;
-		
+
 		String origin = "o";
 		String cipher = encrypter.encrypt(origin, "3233,17");
 		String plain = encrypter.decrypt(cipher, "3233,413");
-		print(origin);
-		print(cipher);
-		print(plain);
+		System.out.println(origin);
+		System.out.println(cipher);
+		System.out.println(plain);
 	}
-	public static void print(String s) {
-		System.out.println(s);
-	}
-	public static void print(int i) {
-		System.out.println(i);
-	}
-	
+
 	/*	Proof for calcD time complexity
 	 * 
 	 * de = 1 (mod g)
