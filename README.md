@@ -45,6 +45,12 @@ David Warshawsky:
 - [x] Helped others understand overflow issues emerging
 - [x] Made the diagrams for the report
 
+Owen Kamp:
+- [x] RSA Algorithm
+- [x] Updates to ValidteKey
+- [x] Finalization of AlgorithmOptions
+- [x] Implementation of AlgorithmOptions into version two of graphical interface
+
 ## Problems / Issues:
 Our main issue with this project was the conversion of data to alternate formats. Cryptographic algorithms require data to be converted between Hexadecimal, Binary and Decimal. Within these bases there was also the problem of converting data between int, long, byte, String etc. Implementing this successfully proved difficult for group members.
 Other problems arose during the creation of the GUI due to the limitations of the Java Swing framework. Some of these were resolved but others weren't as they required use of a different framework.
