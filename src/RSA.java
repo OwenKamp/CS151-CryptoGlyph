@@ -1,36 +1,22 @@
 import java.util.stream.Stream;
 
 public class RSA extends Cryptography {
-	// currently, integers will overflow if the size is > 4. If we want to encode larger values, would probably just break up the string into sections of 4
-	// would still get overflow eventually from putting the ints back together
-	private int p;
-	private int q;
-	private int n;
-	private int e;
-	private int g;
-	private int d;
-	
-	public void setKeys(String key) {
-		ValidateKey.validateEncrypt("RSA", key);
-		// only one key input format :)
-		String[] vals = key.split(",");
-		this.p = Integer.parseInt(vals[0]);
-		this.q = Integer.parseInt(vals[1]);
-		this.e = Integer.parseInt(vals[2]);
-		this.n = p*q;
-		this.g = LCM(p-1,q-1);
-		this.d = calcD();
-	}
-	public String getPublicKey() {
+	// overflows if the msg is > 4 chars long, cuz encoding takes 8*n bits, n = length of input
+	// ints have 32 bits in memory, so 32/8 = 4, so n max is 4
+
+	public static String getPublicKey(int p, int q, int e) {
 		StringBuilder s = new StringBuilder();
+		int n = p*q;
 		s.append("n=");
 		s.append(n);
 		s.append(",e=");
 		s.append(e);
 		return s.toString();
 	}
-	public String getPrivateKey() {
+	public static String getPrivateKey(int p, int q, int e) {
 		StringBuilder s = new StringBuilder();
+		int n = p*q;
+		int d = calcD(e, LCM(p,q));
 		s.append("n=");
 		s.append(n);
 		s.append(",d=");
@@ -48,15 +34,19 @@ public class RSA extends Cryptography {
 		int n = Integer.parseInt(key[0]);
 		int e = Integer.parseInt(key[1]);
 		
+		int ret = encryptNum(msg,n,e);
+		
+		return intToString(ret);
+	}
+	public int encryptNum(int m, int n, int e) {
 		int ret = 1;
 		for(int i = 0; i < e; i++) {
-			ret*=msg;
+			ret*=m;
 			while(ret >= n) {
 				ret-=n;
 			}
 		}
-		
-		return intToString(ret);
+		return ret;
 	}
 	public String decrypt(String cipherText, String privateKey) {
 		String validity = ValidateKey.validateDecrypt("RSA", privateKey);
@@ -66,19 +56,24 @@ public class RSA extends Cryptography {
 		}
 		
 		String[] key = privateKey.split(",");
-		int msg = stringToInt(cipherText);
+		int cipher = stringToInt(cipherText);
 		int n = Integer.parseInt(key[0]);
 		int d = Integer.parseInt(key[1]);
 		
+		int ret = decryptNum(cipher,n,d);
+		
+		return intToString(ret);
+	}
+	public int decryptNum(int c, int n, int d) {
 		int ret = 1;
 		for(int i = 0; i < d; i++) {
-			ret*=msg;
+			ret*=c;
 			while(ret >= n) {
 				ret-=n;
 			}
 		}
 		
-		return intToString(ret);
+		return ret;
 	}
 	private static int LCM(int p, int q) {
 		return Math.abs(p*q)/GCD(p,q);
@@ -93,19 +88,12 @@ public class RSA extends Cryptography {
 		}
 		return ret;
 	}
-	private int calcD() {
-		int ret = 1;
-		int val = e;
-		while(val%g!=1) {
-			val+=e;
-			ret+=1;
-			
-			// make sure of no overflow, replaces mod at the end
-			if(val > g) {
-				val-=g;
-			}
+	private static int calcD(int e, int g) {
+		int d = 1;
+		while((d*e)%g!=1) {
+			d++;
 		}
-		return ret;
+		return d;
 	}
 	
 	// by cian
@@ -121,12 +109,25 @@ public class RSA extends Cryptography {
         String strBinary = Converter.stringToBinaryString(str);
         return Integer.parseInt(strBinary, 2);
     }
+	
 	public static void main(String[] args) {
-		String str = "abcd";
-		int num = stringToInt(str);
-		System.out.println(str);
-		System.out.println(num);
-		System.out.println(intToString(num));
+		RSA encrypter = new RSA();
+		int p = 61;
+		int q = 53;
+		int e = 17;
+		
+		String origin = "o";
+		String cipher = encrypter.encrypt(origin, "3233,17");
+		String plain = encrypter.decrypt(cipher, "3233,413");
+		print(origin);
+		print(cipher);
+		print(plain);
+	}
+	public static void print(String s) {
+		System.out.println(s);
+	}
+	public static void print(int i) {
+		System.out.println(i);
 	}
 	
 	/*	Proof for calcD time complexity
