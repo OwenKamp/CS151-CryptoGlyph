@@ -36,16 +36,20 @@ public class ValidateKey {
 			break;
 		case "RSA":
 			String[] ints = key.split(",");
-			if(ints.length != 3) {
-				return "Incorrect number of values for encrypt key, need p,q,e as integers";
+			if(ints.length != 2) {
+				return "Incorrect number of values for encrypt key, need n,e as integers";
 			}
 			try {
-				for(String i : ints) {
-					Integer.parseInt(i);
+				int n = Integer.parseInt(ints[0]);
+				int e = Integer.parseInt(ints[1]);
+				for(int i = 2; i < e/2+1; i++) {
+					if(e%i == 0) {
+						return "second number should be prime";
+					}
 				}
 			}
 			catch (NumberFormatException e) {
-				return "Encryption key not formatted correctly, make sure to only have three integers, no spaces";
+				return "Encryption key not formatted correctly, make sure to only have two integers, no spaces";
 			}
 //			Values that check if input key is valid for encryption
 
@@ -89,16 +93,15 @@ public class ValidateKey {
 			break;
 		case "RSA":
 			String[] ints = key.split(",");
-			if(ints.length != 3) {
-				return "Incorrect number of values for decrypt key, need p,q,e as integers";
+			if(ints.length != 2) {
+				return "Incorrect number of values for encrypt key, need n,d as integers";
 			}
 			try {
-				for(String i : ints) {
-					Integer.parseInt(i);
-				}
+				int n = Integer.parseInt(ints[0]);
+				int d = Integer.parseInt(ints[1]);
 			}
 			catch (NumberFormatException e) {
-				return "Decryption key not formatted correctly, make sure to only have three integers, no spaces";
+				return "Encryption key not formatted correctly, make sure to only have two integers, no spaces";
 			}
 			break;
 //			Values that check if input key is valid for DEcryption
