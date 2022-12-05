@@ -98,8 +98,21 @@ Users can first select a category of algorithms; symmetric or asymmetric. They a
 
 
 ## Snapshot of running program:
-[Startup Home](src/)
+**Home Screen**
+![Home Screen](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/Home.png?raw=true)
+**Symmetric**
+![Symmetric Option](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/Symmetric.png?raw=true)
+**Asymmetric**
+![Asymmetric Option](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/Asymmetric.png?raw=true)
+**Caesar**
+![Caesar](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/Caesar.png?raw=true)
+**A51**
+![Caesar](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/A51.png?raw=true)
 
+**Knapsack**
+![Knapsack](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/Knapsack.png?raw=true)
+**RSA**
+![RSA](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/RSA.png?raw=true)
 
 
 References:
