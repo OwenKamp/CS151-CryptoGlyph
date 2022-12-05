@@ -12,6 +12,20 @@ public class Converter {
         return Stream.of(csv.split(",")).mapToLong(Long::parseLong).toArray();
     }
 
+    public static Integer stringToInt(String str) {
+        String strBinary = Converter.stringToBinaryString(str);
+        return Integer.parseInt(strBinary, 2);
+    }
+
+    public static String intToString(int i) {
+        StringBuilder sb = new StringBuilder(Integer.toBinaryString(i));
+
+        while (sb.toString().length() % 8 != 0) {
+            sb.insert(0, "0");
+        }
+        return Converter.binaryStringToString(sb.toString());
+    }
+
     public static String convertStringToBinary(String input) {
 
         StringBuilder result = new StringBuilder();
