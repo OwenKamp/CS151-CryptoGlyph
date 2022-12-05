@@ -39,15 +39,14 @@ public class RSA extends Cryptography {
 	}
 	
 	public String encrypt(String plainText, String publicKey) {
-		String validity = ValidateKey.validateEncrypt("RSA",publicKey);
+		String validity = ValidateKey.validateEncrypt("RSA", publicKey);
 		if(!publicKey.equals(validity)) {
 			return validity;
 		}
+		String[] key = publicKey.split(",");
 		int msg = stringToInt(plainText);
-		String cur = publicKey.substring(0,32);
-		int n = stringToInt(cur);
-		cur = publicKey.substring(32);
-		int e = stringToInt(cur);
+		int n = Integer.parseInt(key[0]);
+		int e = Integer.parseInt(key[1]);
 		
 		int ret = 1;
 		for(int i = 0; i < e; i++) {
@@ -60,15 +59,16 @@ public class RSA extends Cryptography {
 		return intToString(ret);
 	}
 	public String decrypt(String cipherText, String privateKey) {
-		String validity = ValidateKey.validateDecrypt("RSA",privateKey);
+		String validity = ValidateKey.validateDecrypt("RSA", privateKey);
 		if(!privateKey.equals(validity)) {
+			print("inside if statement");
 			return validity;
 		}
+		
+		String[] key = privateKey.split(",");
 		int msg = stringToInt(cipherText);
-		String cur = privateKey.substring(0,32);
-		int n = stringToInt(cur);
-		cur = privateKey.substring(32);
-		int d = stringToInt(cur);
+		int n = Integer.parseInt(key[0]);
+		int d = Integer.parseInt(key[1]);
 		
 		int ret = 1;
 		for(int i = 0; i < d; i++) {
