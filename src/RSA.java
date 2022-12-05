@@ -51,7 +51,6 @@ public class RSA extends Cryptography {
 	public String decrypt(String cipherText, String privateKey) {
 		String validity = ValidateKey.validateDecrypt("RSA", privateKey);
 		if(!privateKey.equals(validity)) {
-			System.out.println("inside if statement");
 			return validity;
 		}
 		
@@ -98,15 +97,15 @@ public class RSA extends Cryptography {
 	
 	// by cian
 	private static String intToString(int i) {
-        StringBuilder sb = new StringBuilder(Integer.toBinaryString(i));
+        	StringBuilder sb = new StringBuilder(Integer.toBinaryString(i));
 
-        while (sb.toString().length() % 8 != 0) {
-            sb.insert(0, "0");
-        }
-        return Converter.binaryStringToString(sb.toString());
-    }
+        	while (sb.toString().length() % 8 != 0) {
+        	    sb.insert(0, "0");
+        	}
+        	return Converter.binaryStringToString(sb.toString());
+    	}
 	private static Integer stringToInt(String str) {
-        String strBinary = Converter.stringToBinaryString(str);
-        return Integer.parseInt(strBinary, 2);
-    }
+        	String strBinary = Converter.stringToBinaryString(str);
+        	return Integer.parseInt(strBinary, 2);
+    	}
 }
