@@ -86,6 +86,22 @@ Please cite us in your work.
 ## Operations:
 Users can first select a category of algorithms; symmetric or asymmetric. They are then able to select an algorithm from the category they have chosen. Upon selection, the user will then be able to encrypt and decrypt strings with valid keys.
 
+
+Caesar:
+The user can put in any string. The characters are shifted by incrementing the ascii value. There is no overflow stoppage. The key must be an integer,
+positive or negative. The output will be capitalized of the version.
+
+A51:
+
+Knapsack:
+The user can put in any string and the 
+
+RSA:
+
+
+
+
+
 ## Solution:
 
 
