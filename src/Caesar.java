@@ -2,7 +2,6 @@ import static java.lang.String.valueOf;
 
 public class Caesar extends Cryptography {
     public String encrypt(String plaintext, String key) {
-        System.out.println("THIS BITCH WAS PRESSED");
         String validity = ValidateKey.validateEncrypt("Caesar's Cipher", key);
         if(!key.equals(validity)) {
             return validity;

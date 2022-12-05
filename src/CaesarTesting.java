@@ -12,11 +12,11 @@ public class CaesarTesting {
 
     @Test
     public void testEncrypt() {
-        assertEquals("WHVWLQJ", cs.encrypt("Testing", "3"));
+        assertEquals("Whvwlqj", cs.encrypt("Testing", "3"));
     }
 
     @Test
     public void testDecrypt() {
-        assertEquals("TESTING", cs.decrypt("WHVWLQJ", "3"));
+        assertEquals("Testing", cs.decrypt("Whvwlqj", "3"));
     }
 }
