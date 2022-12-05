@@ -86,6 +86,22 @@ Please cite us in your work.
 ## Operations:
 Users can first select a category of algorithms; symmetric or asymmetric. They are then able to select an algorithm from the category they have chosen. Upon selection, the user will then be able to encrypt and decrypt strings with valid keys.
 
+
+Caesar:
+The user can put in any string. The characters are shifted by incrementing the ascii value. There is no overflow stoppage. The key must be an integer,
+positive or negative. The output will be capitalized of the version.
+
+A51:
+
+Knapsack:
+The user can put in any string and the 
+
+RSA:
+
+
+
+
+
 ## Solution:
 
 
@@ -98,6 +114,21 @@ Users can first select a category of algorithms; symmetric or asymmetric. They a
 
 
 ## Snapshot of running program:
+**Home Screen**
+![Home Screen](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/Home.png?raw=true)
+**Symmetric**
+![Symmetric Option](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/Symmetric.png?raw=true)
+**Asymmetric**
+![Asymmetric Option](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/Asymmetric.png?raw=true)
+**Caesar**
+![Caesar](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/Caesar.png?raw=true)
+**A51**
+![Caesar](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/A51.png?raw=true)
+
+**Knapsack**
+![Knapsack](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/Knapsack.png?raw=true)
+**RSA**
+![RSA](https://github.com/OwenKamp/CS151-CryptoGlyph/blob/main/src/images/RSA.png?raw=true)
 
 
 References:
