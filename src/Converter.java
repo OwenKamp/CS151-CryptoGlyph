@@ -1,7 +1,50 @@
 import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 public class Converter {
+
+    public static int getBit(byte b, int position) {
+        return (b >> position) & 1;
+    }
+
+    public static long[] csvToLongArray(String csv) {
+        return Stream.of(csv.split(",")).mapToLong(Long::parseLong).toArray();
+    }
+
+    public static String convertStringToBinary(String input) {
+
+        StringBuilder result = new StringBuilder();
+        char[] chars = input.toCharArray();
+        for (char aChar : chars) {
+            result.append(Converter.charToBinaryStr(aChar));
+        }
+        return result.toString();
+
+    }
+
+    public static String longArrayToCsv(long[] longArray) {
+        StringBuilder sb = new StringBuilder();
+        for (long i : longArray) {
+            sb.append(i);
+            sb.append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
+    }
+    public static float generateMultiplier(java.util.Random r) {
+        return r.nextInt(3) + 1 + (r.nextFloat()*0.5f) + 0.01f;
+    }
+
+    public static int[] charToBinaryArray(char c) {
+        int[] binaryArray = new int[8];
+        String charBinaryStr = charToBinaryStr(c);
+        for (int i = 0; i < 8; i++) {
+            binaryArray[i] = Integer.parseInt(Character.toString(charBinaryStr.charAt(i)));
+        }
+        return binaryArray;
+    }
+
     public static String stringToBinaryString(String str) {
         StringBuilder binaryString = new StringBuilder();
         char[] chars = str.toCharArray();
@@ -15,6 +58,10 @@ public class Converter {
             binaryString.append(letterBuilder);
         }
         return binaryString.toString();
+    }
+
+    public static String charToBinaryStr(char c) {
+        return String.format("%8s", Integer.toBinaryString(c)).replaceAll(" ", "0");
     }
 
     public static String binaryStringToString(String str) {

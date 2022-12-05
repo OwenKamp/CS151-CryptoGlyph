@@ -14,9 +14,7 @@ public class Knapsack extends Cryptography {
 
 //	https://www.geeksforgeeks.org/copyright-information/?ref=footer
 //	https://www.geeksforgeeks.org/java-program-to-display-all-prime-numbers-from-1-to-n/
-	public static float generateMultiplier() {
-		return r.nextInt(3) + 1 + (r.nextFloat()*0.5f) + 0.01f;
-	}
+
 
 //	For the Super-Increasing Knapsack generate an int array where the next element
 //	in the array is greater than the sum of all previous weights.
@@ -32,14 +30,14 @@ public class Knapsack extends Cryptography {
 //		The next number should be the sum of all the previous numbers 
 ////	times a float between 1.01 and 4.00 times the sum. Then it should be cast to an int.
 		for (int i = 1; i < 8; i++) {
-			float mul = generateMultiplier();
+			float mul = Converter.generateMultiplier(r);
 			sik[i] = (long) (sum * mul);
 			sum += sik[i];
 //			System.out.println(sum);
 		}
 		PrimeFinder pf = new PrimeFinder();
 		long[] primes;
-		pf.calculatePrimes((long) (Arrays.stream(sik).sum() * generateMultiplier()));
+		pf.calculatePrimes((long) (Arrays.stream(sik).sum() * Converter.generateMultiplier(r)));
 		try {
 //			Only the following lines could be problematic   
 			primes = pf.getPrimes();
@@ -85,7 +83,7 @@ public class Knapsack extends Cryptography {
 		if(!key.equals(validity)) {
 			return validity;
 		}
-		long[] keyArray = csvToLongArray(key);
+		long[] keyArray = Converter.csvToLongArray(key);
 
 		long[] sums = new long[(int)len];
 
@@ -96,13 +94,13 @@ public class Knapsack extends Cryptography {
 //			for each bit in each letter starting right to left,
 			for (int j = 0; j < 8; j++) {
 //				if the bit is 1,
-				if (getBit(c, j) == 1) {
+				if (Converter.getBit(c, j) == 1) {
 //					add to the current letter's sum the corresponding keyArray's value.
 					sums[i] += keyArray[7 - j];
 				}
 			}
 		}
-		return longArrayToCsv(sums);
+		return Converter.longArrayToCsv(sums);
 	}
 
 //	Encrypted returns the sums of the public knapsack.
@@ -113,31 +111,19 @@ public class Knapsack extends Cryptography {
 //		Create the value to return
 		StringBuilder sb = new StringBuilder();
 //		change the input to integer arrays.
-		long[] sumArray = csvToLongArray(cipherText);
+		long[] sumArray = Converter.csvToLongArray(cipherText);
 		String validity = ValidateKey.validateDecrypt("Knapsack", key);
 		if(!key.equals(validity)) {
 			return validity;
 		}
-		long[] keyArray = csvToLongArray(key);
+		long[] keyArray = Converter.csvToLongArray(key);
 		for (int i = 0; i < sumArray.length; i++) {
 			sb.append(solveKnapsack(sumArray[i], keyArray));
 		}
 		return sb.toString();
 	}
 
-	public static int[] charToBinaryArray(char c) {
-		int[] binaryArray = new int[8];
-		String charBinaryStr = charToBinaryStr(c);
-		for (int i = 0; i < 8; i++) {
-			binaryArray[i] = Integer.parseInt(Character.toString(charBinaryStr.charAt(i)));
-		}
-		return binaryArray;
-	}
-
 //	https://stackoverflow.com/questions/9354860/how-to-get-the-value-of-a-bit-at-a-certain-position-from-a-byte
-	public static int getBit(byte b, int position) {
-		return (b >> position) & 1;
-	}
 
 	public static char solveKnapsack(long encrypted, long[] sik) {
 		byte ret = 0x00;
@@ -157,34 +143,7 @@ public class Knapsack extends Cryptography {
 		return (char) ret;
 		}
 
-	public static String longArrayToCsv(long[] longArray) {
-		StringBuilder sb = new StringBuilder();
-		for (long i : longArray) {
-			sb.append(i);
-			sb.append(",");
-		}
-		sb.deleteCharAt(sb.length() - 1);
-		return sb.toString();
-	}
 
-	public static long[] csvToLongArray(String csv) {
-		return Stream.of(csv.split(",")).mapToLong(Long::parseLong).toArray();
-	}
-
-	public static String convertStringToBinary(String input) {
-
-		StringBuilder result = new StringBuilder();
-		char[] chars = input.toCharArray();
-		for (char aChar : chars) {
-			result.append(charToBinaryStr(aChar));
-		}
-		return result.toString();
-
-	}
-
-	public static String charToBinaryStr(char c) {
-		return String.format("%8s", Integer.toBinaryString(c)).replaceAll(" ", "0");
-	}
 
 	public static void main(String[] args) {
 		Knapsack k = new Knapsack();
@@ -192,9 +151,9 @@ public class Knapsack extends Cryptography {
 		long[] gk = Knapsack.generateGK(sik);
 		String wordToEncrypt = "Hello There Warshawsky";
 		System.out.println(wordToEncrypt);
-		String encrypted = k.encrypt(wordToEncrypt, Knapsack.longArrayToCsv(gk));
+		String encrypted = k.encrypt(wordToEncrypt, Converter.longArrayToCsv(gk));
 		System.out.println("ENCRYPTED: " + encrypted);
-		String decrypted = k.decrypt(encrypted, Knapsack.longArrayToCsv(sik));
+		String decrypted = k.decrypt(encrypted,Converter.longArrayToCsv(sik));
 		System.out.println("DECRYPTED: " + decrypted);
 		
 //		https://stackoverflow.com/questions/36019032/how-to-iterate-over-all-bits-of-a-byte-in-java
