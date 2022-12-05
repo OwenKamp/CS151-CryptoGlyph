@@ -102,7 +102,6 @@ public class ValidateKey {
 			}
 			break;
 //			Values that check if input key is valid for DEcryption
-			break;
 
 		}
 		return key;
