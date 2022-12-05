@@ -11,9 +11,7 @@ public class Converter {
             while (letterBuilder.length() < 8) {
                 letterBuilder.insert(0, "0");
             }
-//            if (letterBuilder.length() < 8) {
-//                letterBuilder.insert(0, "0");
-//            }
+
             binaryString.append(letterBuilder);
         }
         return binaryString.toString();

@@ -82,7 +82,7 @@ public class Knapsack extends Cryptography {
 			return null;
 		}
 		String validity = ValidateKey.validateEncrypt("Knapsack", key);
-		if(!key.equals(validity) {
+		if(!key.equals(validity)) {
 			return validity;
 		}
 		long[] keyArray = csvToLongArray(key);

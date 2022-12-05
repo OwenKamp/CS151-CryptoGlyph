@@ -126,6 +126,18 @@ public class A51 extends Cryptography {
         }
     }
 
+    public int[] getRegisterX() {
+        return this.registerX;
+    }
+
+    public int[] getRegisterY() {
+        return this.registerY;
+    }
+
+    public int[] getRegisterZ() {
+        return this.registerZ;
+    }
+
     public static void main(String[] args) {
         A51 tester = new A51();
         String ciphertext = tester.encrypt("hello my name is john doe and i am doing some testing", "1111111111111111111000000000000000000000011111111111111111111111");

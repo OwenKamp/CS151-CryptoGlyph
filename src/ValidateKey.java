@@ -1,7 +1,7 @@
 import java.util.regex.*;  
 
 public class ValidateKey {
-	
+//	Do not make exceptions, just return a string.
 	public static String validateEncrypt(String algorithm, String key) {
 		switch (algorithm) {
 		case "Caesar's Cipher":
@@ -47,8 +47,11 @@ public class ValidateKey {
 			catch (NumberFormatException e) {
 				return "Encryption key not formatted correctly, make sure to only have three integers, no spaces";
 			}
+//			Values that check if input key is valid for encryption
+
 			break;
 		}
+
 		return key;
 	}
 	
@@ -98,6 +101,8 @@ public class ValidateKey {
 				return "Decryption key not formatted correctly, make sure to only have three integers, no spaces";
 			}
 			break;
+//			Values that check if input key is valid for DEcryption
+
 		}
 		return key;
 	}
