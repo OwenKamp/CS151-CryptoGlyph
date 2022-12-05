@@ -35,7 +35,6 @@ public class ValidateKey {
 			}
 			break;
 		case "RSA":
-<<<<<<< HEAD
 			String[] ints = key.split(",");
 			if(ints.length != 3) {
 				return "Incorrect number of values for encrypt key, need p,q,e as integers";
@@ -48,10 +47,8 @@ public class ValidateKey {
 			catch (NumberFormatException e) {
 				return "Encryption key not formatted correctly, make sure to only have three integers, no spaces";
 			}
-=======
 //			Values that check if input key is valid for encryption
 
->>>>>>> 559f5f4e363a794ad23758e0772158d26acb1e05
 			break;
 		}
 
@@ -91,7 +88,6 @@ public class ValidateKey {
 			}
 			break;
 		case "RSA":
-<<<<<<< HEAD
 			String[] ints = key.split(",");
 			if(ints.length != 3) {
 				return "Incorrect number of values for decrypt key, need p,q,e as integers";
@@ -105,11 +101,9 @@ public class ValidateKey {
 				return "Decryption key not formatted correctly, make sure to only have three integers, no spaces";
 			}
 			break;
-=======
 //			Values that check if input key is valid for DEcryption
 			break;
 
->>>>>>> 559f5f4e363a794ad23758e0772158d26acb1e05
 		}
 		return key;
 	}
