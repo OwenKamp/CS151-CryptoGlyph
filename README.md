@@ -98,6 +98,8 @@ Users can first select a category of algorithms; symmetric or asymmetric. They a
 
 
 ## Snapshot of running program:
+[Startup Home](src/)
+
 
 
 References:
