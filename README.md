@@ -15,6 +15,7 @@ Cian Kelly:
 
 David Warshawsky:
 - [x] Created Timing Diagram
+- [x] Contributed to Class Diagram
 - [x] Contributed evenly to readme file
 
 
@@ -37,7 +38,11 @@ Cian Kelly:
 
 David Warshawsky:
 - [x] Knapsack Algorithm
-- [x] Version two of graphical interface - improved structure of existing code, implemented more OOD, fixed bugs
+- [x] Version two of graphical interface - improved structure of existing code
+- [x] Implemented inheritance through NewGUI extending JFrame meanwhile AlgorithmScreen and AlgorithmOptions extend ComponentScreen
+- [x] Created Navigation MVC. Controller is encrypt/decrypt button. Model is cryptographyWindow. View is the AlgorithmScreen
+- [x] Unit testing for Knapsack
+- [x] Helped others understand overflow issues emerging
 - [x] Made the diagrams for the report
 
 ## Problems / Issues:
