@@ -30,13 +30,13 @@ public class RSA extends Cryptography {
 			return validity;
 		}
 		String[] key = publicKey.split(",");
-		int msg = Converter.stringToInt(plainText);
+		int msg = stringToInt(plainText);
 		int n = Integer.parseInt(key[0]);
 		int e = Integer.parseInt(key[1]);
 		
 		int ret = encryptNum(msg,n,e);
 		
-		return Converter.intToString(ret);
+		return intToString(ret);
 	}
 	public int encryptNum(int m, int n, int e) {
 		int ret = 1;
@@ -56,13 +56,13 @@ public class RSA extends Cryptography {
 		}
 		
 		String[] key = privateKey.split(",");
-		int cipher = Converter.stringToInt(cipherText);
+		int cipher = stringToInt(cipherText);
 		int n = Integer.parseInt(key[0]);
 		int d = Integer.parseInt(key[1]);
 		
 		int ret = decryptNum(cipher,n,d);
 		
-		return Converter.intToString(ret);
+		return intToString(ret);
 	}
 	public int decryptNum(int c, int n, int d) {
 		int ret = 1;
@@ -95,52 +95,18 @@ public class RSA extends Cryptography {
 		}
 		return d;
 	}
+	
+	// by cian
+	private static String intToString(int i) {
+        StringBuilder sb = new StringBuilder(Integer.toBinaryString(i));
 
-
-	public static void main(String[] args) {
-		RSA encrypter = new RSA();
-		int p = 61;
-		int q = 53;
-		int e = 17;
-
-		String origin = "o";
-		String cipher = encrypter.encrypt(origin, "3233,17");
-		String plain = encrypter.decrypt(cipher, "3233,413");
-		System.out.println(origin);
-		System.out.println(cipher);
-		System.out.println(plain);
-	}
-
-	/*	Proof for calcD time complexity
-	 * 
-	 * de = 1 (mod g)
-	 * 17d = 1 (mod 3233)
-	 * d = 413
-	 * 
-	 * e < n
-	 * 
-	 * n is not even
-	 * if e = n-2 (mod n)
-	 * 2e = 2n-4 (mod n)
-	 * 2e = n-4 (mod n)
-	 * ....
-	 * xe = xn-2x (mod n)
-	 * xe = n-2x (mod n)
-	 * 
-	 * since n is odd, this will eventually result in max of 2x = n+1 = d, so
-	 * de = n-n+1 (mod n)
-	 * de = 1 (mod n)
-	 * 
-	 * 
-	 * if e = n-2k (mod n),
-	 * 2k is even, but will still eventually reach 2k = n+1 = d
-	 * so, de = n-n+1 (mod n)
-	 * de = 1 (mod n)
-	 * 
-	 * e and n are both odd, because they are both prime, and e,n != 2
-	 * since e < n, 
-	 * e = n - 2k always
-	 * 
-	 * finding d is in O(n+1) = O(n) worst case
-	 */
+        while (sb.toString().length() % 8 != 0) {
+            sb.insert(0, "0");
+        }
+        return Converter.binaryStringToString(sb.toString());
+    }
+	private static Integer stringToInt(String str) {
+        String strBinary = Converter.stringToBinaryString(str);
+        return Integer.parseInt(strBinary, 2);
+    }
 }
