@@ -104,7 +104,7 @@ Knapsack:
 The user can put in any string and the 
 
 RSA:
-
+Users can input a short string as a plaintext or ciphertext, along with two numbers separated by a comma and no space as the public or private key (EX: 12,4). The second number for the public key (used for encryption) should be prime. Additionally, the first integer is both keys should be "larger" than the input string (we assign a string to an integer value based on the ASCII values of the characters, the first integer should be larger than this value). The output string can be longer or shorter than the input string, as the encoded number can be quite large.
 
 
 
