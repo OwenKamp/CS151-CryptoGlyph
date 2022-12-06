@@ -10,18 +10,18 @@ Cian Kelly, David Warshawsky, Owen Kamp
 Cian Kelly:
 - [x] Created Class Diagram
 - [x] Created State Diagram
-- [x] Contributed evenly to readme file
+- [x] Contributed evenly to proposal readme file
 
 
 David Warshawsky:
 - [x] Created Timing Diagram
 - [x] Contributed to Class Diagram
-- [x] Contributed evenly to readme file
+- [x] Contributed evenly to proposal readme file
 
 
 Owen Kamp:
 - [x] Created Use Case Diagram
-- [x] Contributed evenly to readme file
+- [x] Contributed evenly to proposal readme file
 
 ### Team Members working on the project presentation and their contributions:
 Cian Kelly:
@@ -35,6 +35,7 @@ Cian Kelly:
 - [x] Conversion Class
 - [x] Unit testing for implemented algorithms
 - [x] Wrote the report itself for the project
+- [x] Created the UML and state diagrams 
 
 David Warshawsky:
 - [x] Knapsack Algorithm
@@ -43,7 +44,7 @@ David Warshawsky:
 - [x] Created Navigation MVC. Controller is encrypt/decrypt button. Model is cryptographyWindow. View is the AlgorithmScreen
 - [x] Unit testing for Knapsack
 - [x] Helped others understand overflow issues emerging
-- [x] Made the diagrams for the report
+- [x] Made the timing diagram for the report
 
 Owen Kamp:
 - [x] RSA Algorithm
@@ -51,6 +52,7 @@ Owen Kamp:
 - [x] Finalization of AlgorithmOptions
 - [x] Implementation of AlgorithmOptions into version two of graphical interface
 - [x] RSA test cases
+- [x] Created the use case diagram
 
 ## Problems / Issues:
 Our main issue with this project was the conversion of data to alternate formats. Cryptographic algorithms require data to be converted between Hexadecimal, Binary and Decimal. Within these bases there was also the problem of converting data between int, long, byte, String etc. Implementing this successfully proved difficult for group members.
@@ -99,12 +101,13 @@ The user can put in any string. The characters are shifted by incrementing the a
 positive or negative. The output will be capitalized of the version.
 
 A51:
+The user can input any string. The user must also enter a key that is 64 bits long. Bits can be either the character 1 or 0.
 
 Knapsack:
-The user can put in any string and the 
+The user can input any string as plaintext. The key takes the form "x,x,x,x,x,x,x,x,y,z" where x represents the super increasing knapsack, y represents the n value and z represents the m value.
 
 RSA:
-Users can input a short string as a plaintext or ciphertext, along with two numbers separated by a comma and no space as the public or private key (EX: 12,4). The second number for the public key (used for encryption) should be prime. Additionally, the first integer is both keys should be "larger" than the input string (we assign a string to an integer value based on the ASCII values of the characters, the first integer should be larger than this value). The output string can be longer or shorter than the input string, as the encoded number can be quite large.
+Users can input a short string as a plaintext or ciphertext, along with two numbers separated by a comma and no space as the public or private key (EX: 12,4). The second number for the public key (used for encryption) should be prime. Additionally, the first integer is both keys should be "larger" than the input string (we assign a string to an integer value based on the ASCII values of the characters, the first integer should be larger than this value). The output string can be longer or shorter than the input string, as the encoded number can be quite large. Output strings may include symbols.
 
 
 
