@@ -113,7 +113,9 @@ Users can input a short string as a plaintext or ciphertext, along with two numb
 
 
 ## Solution:
+We solved the abstract problem by making a program that users can interact with while learning how encryption and decryption works. The user needs to understand how the algorithms work in order to succesfully use the program. We get error messages when the input is not as expected. 
 
+The code problem was solved by using inheritance and an MVC. We navigate to different sections of the program based on input from the user. The user enters input on which algorithm they want to use and the algorithm that is selected changes the algorithm screen and the logic that will be implemented on the same screen. The algorithms themselves were developed over the course of multiple weeks due to the mathematical and programmatical complexity.
 
 ## Steps to run code:
 1. Be running openjdk version "14" 2020-03-17 and OpenJDK Runtime Environment (build 14+36-1461)
